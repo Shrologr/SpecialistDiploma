@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Diploma.Derives">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAMAAAAABoGAAAIAASAAI=</HashCode>
+      <FileName>Derives.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.CustomPoint">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAQAAAAAAAAAAIAAAAAAAAAAAAQAAAAE=</HashCode>
+      <FileName>CustomPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.DrawState">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAEAAAAAAAAAAAAABAAAAAAAAAEAAAA=</HashCode>
+      <FileName>DrawState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.LaunchingForm">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAACwAAAAAACCABAICgAEAAAAAAAAACAEAAAA=</HashCode>
+      <FileName>LaunchingForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.PoincareForm">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="Diploma.PoincareForm.PictureBoxCall" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PoincareForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="Diploma.PoincareForm.ProgressBarCall" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PoincareForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EKIEAAKQgCIAKBgMIMijAIACaABgABwAQHQAiAAhFAA=</HashCode>
+      <FileName>PoincareForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.TrajectoryForm">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="Diploma.TrajectoryForm.PictureBoxCall" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TrajectoryForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EKIEIAKYgCIEaBgMMMiCAJACKABgABwIQBQAiAAhNBA=</HashCode>
+      <FileName>TrajectoryForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Diploma.AdvectionForm">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Delegate Name="Diploma.AdvectionForm.PictureBoxCall" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AdvectionForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EKIEAIKQgCIEaBgMMMiCAJgCKQBgABAAQBQBiAAAJBA=</HashCode>
+      <FileName>AdvectionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

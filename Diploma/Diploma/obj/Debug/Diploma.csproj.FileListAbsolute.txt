@@ -1,0 +1,51 @@
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\bin\Debug\Diploma.exe.config
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\bin\Debug\Diploma.exe
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\bin\Debug\Diploma.pdb
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.csprojResolveAssemblyReference.cache
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.Properties.Resources.resources
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.csproj.GenerateResource.Cache
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.exe
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.pdb
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.LaunchingForm.resources
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.AdvectionForm.resources
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.PoincareForm.resources
+C:\Users\Xardas\Documents\GitHub\Bachleor-s-Word\Diploma\Diploma\obj\Debug\Diploma.TrajectoryForm.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\bin\Debug\Diploma.exe.config
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.exe
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.pdb
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\bin\Debug\Diploma.exe
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\bin\Debug\Diploma.pdb
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.csprojResolveAssemblyReference.cache
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.AdvectionForm.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.LaunchingForm.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.Properties.Resources.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.PoincareForm.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.TrajectoryForm.resources
+D:\Documents\Гуржій\Диплом\Diploma\Diploma\obj\Debug\Diploma.csproj.GenerateResource.Cache
+c:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\Diploma.exe.config
+c:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.exe
+c:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.pdb
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\Diploma.exe
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\Diploma.pdb
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.csprojResolveAssemblyReference.cache
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.AdvectionForm.resources
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.LaunchingForm.resources
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.Properties.Resources.resources
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.PoincareForm.resources
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.TrajectoryForm.resources
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\obj\Debug\Diploma.csproj.GenerateResource.Cache
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\ZedGraph.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\ZedGraph.xml
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\de\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\es\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\fr\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\hu\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\it\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\ja\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\pt\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\ru\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\sk\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\sv\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\tr\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\zh-cn\ZedGraph.resources.dll
+C:\Users\Shrologr\Documents\Visual Studio 2013\Projects\Diploma\Diploma\bin\Debug\zh-tw\ZedGraph.resources.dll
