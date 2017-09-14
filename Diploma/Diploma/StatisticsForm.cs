@@ -16,13 +16,16 @@ namespace Diploma
     {
         bool isAddingActive;
         bool isActive, isPaused;
-        public delegate void PictureBoxCall();
+        public delegate void FormCall();
         Derives derives;
         Pen axisPen = new Pen(Color.Black, 2.5F);
         List<CustomPoint> points;
         ColorDialog colorDialog;
         DrawState drawState;
+        List<List<float>> cells;
+        double cellWidth;
         Random r;
+        int totalCellCount;
         public StatisticsForm()
         {
             r = new Random();
@@ -35,22 +38,35 @@ namespace Diploma
             double.TryParse(StraightSpeedTextBox.Text, out derives.U);
             double.TryParse(RadiusTextBox.Text, out derives.A);
             double.TryParse(PeriodTextBox.Text, out derives.Period);
-
+            cells = new List<List<float>>();
         }
 
+        private void TextBoxCall()
+        {
+            textBox1.Text = "";
+            for (int i = 0; i < cells.Count; i++)
+            {
+                for (int j = 0; j < cells[i].Count; j++)
+                {
+                    textBox1.Text += cells[i][j] + " ";
+                }
+                textBox1.Text += Environment.NewLine;
+            }
+        }
         async private void Start_Click(object sender, EventArgs e)
         {
             StartModelingButton.Enabled = false;
             isActive = true;
             DrawPlane.Refresh();
             int eNumber = 2;
-            PictureBoxCall caller = DrawPlane.Refresh;
+            FormCall caller = DrawPlane.Refresh;
+            FormCall textBoxcaller = TextBoxCall;
             double t = 0.0, dt = 0.01, tend = 0.01;
             double.TryParse(CircularSpeedTextBox.Text, out derives.V);
             double.TryParse(StraightSpeedTextBox.Text, out derives.U);
             double.TryParse(RadiusTextBox.Text, out derives.A);
             double.TryParse(PeriodTextBox.Text, out derives.Period);
-            double.TryParse(TimeStepTextBox.Text, out dt);
+            dt = 0.01;
             tend = dt;
             drawState.Dt = dt;
             await Task.Run(() =>
@@ -62,11 +78,24 @@ namespace Diploma
                         System.Threading.Thread.Sleep(100);
                     }
                     for (int j = 0; j < points.Count; j++)
+                    {
                         RungeKutClass.Runge_Kut(eNumber, t, tend, dt, points[j], derives);
+                        int xindex = (int)((points[j].Coordinates[0] + derives.A) / cellWidth);
+                        int yindex = (int)((points[j].Coordinates[1]) / cellWidth);
+                        cells[xindex][yindex] += 1.0F / totalCellCount;
+                    }
                     t = tend;
                     tend = dt + dt * i;
                     this.Invoke(caller);
+                    this.Invoke(textBoxcaller);
                     System.Threading.Thread.Sleep(1);
+                    for (int j = 0; j < cells.Count; j++)
+                    {
+                        for (int k = 0; k < cells[j].Count; k++)
+                        {
+                            cells[j][k] = 0;
+                        }
+                    }
                 }
             });
             points.Clear();
@@ -108,6 +137,15 @@ namespace Diploma
             for (int i = 0; i < points.Count; i++)
             {
                 e.Graphics.FillEllipse(points[i].PointBrush, TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
+            }
+            float currentCellWidth = (float)TransformXtoPlane(cellWidth) - TransformXtoPlane(0);
+            float currentCellHeight = (float)TransformYtoPlane(0) - TransformYtoPlane(cellWidth);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                for (int j = 0; j < cells[i].Count; j++)
+                {
+                    e.Graphics.DrawRectangle(new Pen(Color.Black), TransformXtoPlane(-derives.A + i * cellWidth), TransformYtoPlane((j + 1) * cellWidth), currentCellWidth, currentCellHeight);
+                }
             }
         }
         double TransformXtoLocal(double X)
@@ -225,7 +263,7 @@ namespace Diploma
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                double.TryParse(TimeStepTextBox.Text, out drawState.Dt);
+                drawState.Dt = 0.01;
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(drawState.GetType());
                 MemoryStream ms = new MemoryStream();
                 serializer.WriteObject(ms, drawState);
@@ -248,10 +286,33 @@ namespace Diploma
                 StraightSpeedTextBox.Text = drawState.DeriveData.U.ToString();
                 RadiusTextBox.Text = drawState.DeriveData.A.ToString();
                 PeriodTextBox.Text = drawState.DeriveData.Period.ToString();
-                TimeStepTextBox.Text = drawState.Dt.ToString();
                 DrawPlane.Refresh();
 
             }
+        }
+
+        private void CellNumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            double.TryParse(CellNumberTextBox.Text, out cellWidth);
+            totalCellCount = 0;
+            cells.Clear();
+            cells.AddRange(new List<float>[(int)(derives.A * 2 / cellWidth) + (((derives.A * 2) % cellWidth != 0) ? 1 : 0)]);
+            for (int i = 0; i < cells.Count; i++)
+            {
+                cells[i] = new List<float>();
+                cells[i].AddRange(new float[(int)(derives.A / cellWidth) + ((derives.A % cellWidth != 0) ? 1 : 0)]);
+                for (int j = 0; j < cells[i].Count; j++)
+                {
+                    if (Math.Sqrt(Math.Pow(i * cellWidth - derives.A, 2) + Math.Pow(j * cellWidth, 2)) > derives.A && Math.Sqrt(Math.Pow((i + 1) * cellWidth - derives.A, 2) + Math.Pow(j * cellWidth, 2)) > derives.A)
+                    {
+                        cells[i].RemoveRange(j, cells[i].Count - j);
+                        break;
+                    }
+                    totalCellCount++;
+                }
+            }
+            label5.Text = totalCellCount + "";
+            Refresh();
         }
     }
 }

@@ -102,6 +102,9 @@
     <EmbeddedResource Include="PoincareForm.resx">
       <DependentUpon>PoincareForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StatisticsForm.resx">
+      <DependentUpon>StatisticsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TrajectoryForm.resx">
       <DependentUpon>TrajectoryForm.cs</DependentUpon>
     </EmbeddedResource>
