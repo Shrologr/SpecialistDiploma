@@ -53,8 +53,6 @@ namespace Diploma
             this.CalculationLabel = new System.Windows.Forms.Label();
             this.CellNumberTextBox = new System.Windows.Forms.TextBox();
             this.CellNumberLabel = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DrawPlane)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PointNumberUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SizeUpDown)).BeginInit();
@@ -151,7 +149,7 @@ namespace Diploma
             this.PeriodTextBox.Name = "PeriodTextBox";
             this.PeriodTextBox.Size = new System.Drawing.Size(100, 21);
             this.PeriodTextBox.TabIndex = 38;
-            this.PeriodTextBox.Text = "0,04";
+            this.PeriodTextBox.Text = "0.04";
             // 
             // StopModelingButton
             // 
@@ -338,7 +336,7 @@ namespace Diploma
             this.CellNumberTextBox.Name = "CellNumberTextBox";
             this.CellNumberTextBox.Size = new System.Drawing.Size(204, 21);
             this.CellNumberTextBox.TabIndex = 64;
-            this.CellNumberTextBox.Text = "1";
+            this.CellNumberTextBox.Text = "11";
             this.CellNumberTextBox.TextChanged += new System.EventHandler(this.CellNumberTextBox_TextChanged);
             // 
             // CellNumberLabel
@@ -351,30 +349,11 @@ namespace Diploma
             this.CellNumberLabel.TabIndex = 65;
             this.CellNumberLabel.Text = "Ширина комірок";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(509, 180);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 66;
-            this.label5.Text = "label5";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(510, 324);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(202, 102);
-            this.textBox1.TabIndex = 67;
-            // 
             // StatisticsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(724, 513);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.CellNumberLabel);
             this.Controls.Add(this.CellNumberTextBox);
             this.Controls.Add(this.CalculationLabel);
@@ -441,7 +420,5 @@ namespace Diploma
         private System.Windows.Forms.Label CalculationLabel;
         private System.Windows.Forms.TextBox CellNumberTextBox;
         private System.Windows.Forms.Label CellNumberLabel;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }

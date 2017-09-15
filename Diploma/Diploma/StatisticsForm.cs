@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace Diploma
 {
@@ -25,7 +27,14 @@ namespace Diploma
         List<List<float>> cells;
         double cellWidth;
         Random r;
+        GraphPane pane;
         int totalCellCount;
+
+        PointPairList densityDistributionMeanValueList;
+        PointPairList densityDistributionRootMeanSquareValueList;
+        PointPairList mixtureEntropyValueList;
+        PointPairList maxMixtureEntropyValueList;
+        PointPairList segregationIntensityValueList;
         public StatisticsForm()
         {
             r = new Random();
@@ -34,38 +43,89 @@ namespace Diploma
             colorDialog = new ColorDialog();
             drawState = new DrawState(derives, 0, 0, points);
             InitializeComponent();
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
-            double.TryParse(RadiusTextBox.Text, out derives.A);
-            double.TryParse(PeriodTextBox.Text, out derives.Period);
+            pane = zedGraph.GraphPane;
+            pane.XAxis.MajorGrid.IsVisible = true;
+            pane.XAxis.MajorGrid.DashOn = 5;
+            pane.XAxis.MajorGrid.DashOff = 3;
+            pane.YAxis.MajorGrid.IsVisible = true;
+            pane.YAxis.MajorGrid.DashOn = 5;
+            pane.YAxis.MajorGrid.DashOff = 3;
+            pane.YAxis.MinorGrid.IsVisible = true;
+            pane.YAxis.MinorGrid.DashOn = 1;
+            pane.YAxis.MinorGrid.DashOff = 1;
+            pane.XAxis.MinorGrid.IsVisible = true;
+            pane.XAxis.MinorGrid.DashOn = 1;
+            pane.XAxis.MinorGrid.DashOff = 1;
+            pane.Title.Text = "Статистика";
+            pane.XAxis.Title.Text = "Час";
+            pane.YAxis.Title.Text = "Значення";
+            pane.YAxis.Type = AxisType.Log;
+
+
+            densityDistributionMeanValueList = new PointPairList();
+            densityDistributionRootMeanSquareValueList = new PointPairList();
+            mixtureEntropyValueList = new PointPairList();
+            maxMixtureEntropyValueList = new PointPairList();
+            segregationIntensityValueList = new PointPairList();
+
+            LineItem densityDistributionMeanValueListLine = pane.AddCurve("Середнє значення густини розподілу", densityDistributionMeanValueList, Color.Red, SymbolType.None);
+            LineItem densityDistributionRootMeanSquareValueLine = pane.AddCurve("Середньо двадратичне значення густини розподілу", densityDistributionRootMeanSquareValueList, Color.Blue, SymbolType.None);
+            LineItem maxMixtureEntropyValueLine = pane.AddCurve("Максимальна ентропія розмішування", maxMixtureEntropyValueList, Color.Green, SymbolType.None);
+            LineItem mixtureEntropyValueLine = pane.AddCurve("Ентропія розмішування", mixtureEntropyValueList, Color.Violet, SymbolType.None);
+            LineItem segregationIntensityValueLine = pane.AddCurve("Інтенсивність сегрегації", segregationIntensityValueList, Color.Orange, SymbolType.None);
+
+            densityDistributionMeanValueListLine.Line.DashOn = 2.0F;
+            densityDistributionMeanValueListLine.Line.DashOff = 3.0F;
+            densityDistributionMeanValueListLine.Line.Width = 2.0F;
+
+            densityDistributionRootMeanSquareValueLine.Line.DashOn = 2.0F;
+            densityDistributionRootMeanSquareValueLine.Line.DashOff = 3.0F;
+            densityDistributionRootMeanSquareValueLine.Line.Width = 2.0F;
+
+            maxMixtureEntropyValueLine.Line.DashOn = 2.0F;
+            maxMixtureEntropyValueLine.Line.DashOff = 3.0F;
+            maxMixtureEntropyValueLine.Line.Width = 2.0F;
+
+            mixtureEntropyValueLine.Line.DashOn = 2.0F;
+            mixtureEntropyValueLine.Line.DashOff = 3.0F;
+            mixtureEntropyValueLine.Line.Width = 2.0F;
+
+            segregationIntensityValueLine.Line.DashOn = 2.0F;
+            segregationIntensityValueLine.Line.DashOff = 3.0F;
+            segregationIntensityValueLine.Line.Width = 2.0F;
+
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
+            double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
+            double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
             cells = new List<List<float>>();
+            BuildGrid();
         }
 
-        private void TextBoxCall()
+        private void RedrawGraph()
         {
-            textBox1.Text = "";
-            for (int i = 0; i < cells.Count; i++)
-            {
-                for (int j = 0; j < cells[i].Count; j++)
-                {
-                    textBox1.Text += cells[i][j] + " ";
-                }
-                textBox1.Text += Environment.NewLine;
-            }
+            zedGraph.AxisChange();
+            zedGraph.Invalidate();
         }
         async private void Start_Click(object sender, EventArgs e)
         {
+            densityDistributionMeanValueList.Clear();
+            densityDistributionRootMeanSquareValueList.Clear();
+            mixtureEntropyValueList.Clear();
+            maxMixtureEntropyValueList.Clear();
+            segregationIntensityValueList.Clear();
             StartModelingButton.Enabled = false;
             isActive = true;
             DrawPlane.Refresh();
             int eNumber = 2;
             FormCall caller = DrawPlane.Refresh;
-            FormCall textBoxcaller = TextBoxCall;
-            double t = 0.0, dt = 0.01, tend = 0.01;
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
-            double.TryParse(RadiusTextBox.Text, out derives.A);
-            double.TryParse(PeriodTextBox.Text, out derives.Period);
+            FormCall graphCaller = RedrawGraph;
+            double t = 0.0, dt = 0.002, tend = 0.002, calculationPeriod = 0;
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
+            double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
+            double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
+            double.TryParse(CalculationPeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod);
             dt = 0.01;
             tend = dt;
             drawState.Dt = dt;
@@ -86,8 +146,46 @@ namespace Diploma
                     }
                     t = tend;
                     tend = dt + dt * i;
+                    if (t % calculationPeriod < 0.001)
+                    {
+                        double rootMeanSquareSum = 0;
+                        double sum = 0;
+                        double maxEntropy = 0;
+                        double entropy = 0;
+                        double intensity = 0;
+                        for (int j = 0; j < cells.Count; j++)
+                        {
+                            for (int k = 0; k < cells[j].Count; k++)
+                            {
+                                sum += cells[j][k];
+                                rootMeanSquareSum += Math.Pow(cells[j][k], 2);
+                                entropy += cells[j][k] * ((cells[j][k] == 0) ? 1 : Math.Log(cells[j][k]));
+                            }
+                        }
+                        rootMeanSquareSum /= totalCellCount;
+                        entropy /= -totalCellCount;
+                        sum /= totalCellCount;
+
+                        for (int j = 0; j < cells.Count; j++)
+                        {
+                            for (int k = 0; k < cells[j].Count; k++)
+                            {
+                                intensity += Math.Pow(cells[j][k] - sum, 2);
+                            }
+                        }
+                        intensity /= totalCellCount;
+                        intensity /= sum * (1 - sum);
+                        maxEntropy = -sum * Math.Log(sum);
+                        sum = Math.Pow(sum, 2);
+
+                        densityDistributionMeanValueList.Add(t, sum);
+                        densityDistributionRootMeanSquareValueList.Add(t, rootMeanSquareSum);
+                        mixtureEntropyValueList.Add(t, entropy);
+                        maxMixtureEntropyValueList.Add(t, maxEntropy);
+                        segregationIntensityValueList.Add(t, intensity);
+                    }
                     this.Invoke(caller);
-                    this.Invoke(textBoxcaller);
+                    this.Invoke(graphCaller);
                     System.Threading.Thread.Sleep(1);
                     for (int j = 0; j < cells.Count; j++)
                     {
@@ -220,18 +318,18 @@ namespace Diploma
 
         private void Radius_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(RadiusTextBox.Text, out derives.A);
+            double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
             Refresh();
         }
 
         private void StraightSpeed_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
         }
 
         private void CircularSpeed_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
         }
         private void AdvectionForm_SizeChanged(object sender, EventArgs e)
         {
@@ -291,9 +389,12 @@ namespace Diploma
             }
         }
 
-        private void CellNumberTextBox_TextChanged(object sender, EventArgs e)
+        private void BuildGrid()
         {
-            double.TryParse(CellNumberTextBox.Text, out cellWidth);
+            if (!double.TryParse(CellNumberTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out cellWidth))
+            {
+                return;
+            }
             totalCellCount = 0;
             cells.Clear();
             cells.AddRange(new List<float>[(int)(derives.A * 2 / cellWidth) + (((derives.A * 2) % cellWidth != 0) ? 1 : 0)]);
@@ -311,7 +412,10 @@ namespace Diploma
                     totalCellCount++;
                 }
             }
-            label5.Text = totalCellCount + "";
+        }
+        private void CellNumberTextBox_TextChanged(object sender, EventArgs e)
+        {
+            BuildGrid();
             Refresh();
         }
     }
