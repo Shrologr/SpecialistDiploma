@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Diploma
 {
@@ -18,11 +19,11 @@ namespace Diploma
         bool isActive, isPaused;
         public delegate void PictureBoxCall();
         Derives derives;
-        Pen axisPen = new Pen(Color.Black, 2.5F);
         List<CustomPoint> points;
         ColorDialog colorDialog;
         DrawState drawState;
         Random r;
+        CoordinateTransformer coordTransformer;
         public AdvectionForm()
         {
             r = new Random();
@@ -31,10 +32,11 @@ namespace Diploma
             colorDialog = new ColorDialog();
             drawState = new DrawState(derives, 0, 0, points);
             InitializeComponent();
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
-            double.TryParse(RadiusTextBox.Text, out derives.A);
-            double.TryParse(PeriodTextBox.Text, out derives.Period);
+            coordTransformer = new CoordinateTransformer(DrawPlane, derives);
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
+            double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
+            double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
 
         }
 
@@ -43,16 +45,13 @@ namespace Diploma
             StartModelingButton.Enabled = false;
             isActive = true;
             DrawPlane.Refresh();
-            int eNumber = 2;
+            RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             PictureBoxCall caller = DrawPlane.Refresh;
-            double t = 0.0, dt = 0.01, tend = 0.01;
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
-            double.TryParse(RadiusTextBox.Text, out derives.A);
-            double.TryParse(PeriodTextBox.Text, out derives.Period);
-            double.TryParse(TimeStepTextBox.Text, out dt);
-            tend = dt;
-            drawState.Dt = dt;
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
+            double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
+            double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
+            double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out rungeKut.TimeStep);
             await Task.Run(() =>
             {
                 for (int i = 1; isActive; i++)
@@ -62,9 +61,8 @@ namespace Diploma
                         System.Threading.Thread.Sleep(100);
                     }
                     for (int j = 0; j < points.Count; j++)
-                        RungeKutClass.Runge_Kut(eNumber, t, tend, dt, points[j], derives);
-                    t = tend;
-                    tend = dt + dt * i;
+                        rungeKut.Runge_Kut(points[j], derives);
+                    rungeKut.RecalculateTime(i);
                     this.Invoke(caller);
                     System.Threading.Thread.Sleep(1);
                 }
@@ -83,8 +81,8 @@ namespace Diploma
 
         void AddNewPoint(List<CustomPoint> pointList, double X, double Y)
         {
-            double x = TransformXtoLocal(X);
-            double y = TransformYtoLocal(Y);
+            double x = coordTransformer.TransformXtoLocal(X);
+            double y = coordTransformer.TransformYtoLocal(Y);
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
                 pointList.Add(new CustomPoint(new double[] { x, y }, colorDialog.Color));
         }
@@ -93,7 +91,7 @@ namespace Diploma
 
         private void DrawPlane_Paint(object sender, PaintEventArgs e)
         {
-
+            Pen axisPen = new Pen(Color.Black, 2.5F);
             e.Graphics.DrawArc(axisPen, DrawPlane.Width * 0.1F, DrawPlane.Height * 0.1F, DrawPlane.Width * 0.8F, DrawPlane.Height * 1.6F, 180.0F, 180.0F);
             e.Graphics.DrawLine(axisPen, DrawPlane.Width / 2, DrawPlane.Height * 0.9F, DrawPlane.Width / 2, 0);
             e.Graphics.DrawLine(axisPen, 0, DrawPlane.Height * 0.9F, DrawPlane.Width, DrawPlane.Height * 0.9F);
@@ -107,35 +105,16 @@ namespace Diploma
             e.Graphics.FillRectangle(new SolidBrush(colorDialog.Color), DrawPlane.Width - 20, 9, 20, 10);
             for (int i = 0; i < points.Count; i++)
             {
-                e.Graphics.FillEllipse(points[i].PointBrush, TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
+                e.Graphics.FillEllipse(points[i].PointBrush, coordTransformer.TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, coordTransformer.TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
             }
-        }
-        double TransformXtoLocal(double X)
-        {
-            return (X - DrawPlane.Width / 2) * (float)derives.A / (DrawPlane.Width * 0.4F);
-        }
-
-        double TransformYtoLocal(double Y)
-        {
-            return (DrawPlane.Height * 0.9F - Y) * (float)derives.A / (DrawPlane.Height * 0.8F);
-        }
-
-        float TransformXtoPlane(double X)
-        {
-            return (float)X * 0.4F * DrawPlane.Width / (float)(derives.A) + DrawPlane.Width / 2;
-        }
-
-        float TransformYtoPlane(double Y)
-        {
-            return DrawPlane.Height * 0.9F - (float)Y * DrawPlane.Height * 0.8F / (float)derives.A;
         }
         private void DrawPlane_MouseDown(object sender, MouseEventArgs e)
         {
             isAddingActive = true;
             if (e.Button == MouseButtons.Right)
             {
-                double xpos = TransformXtoLocal(e.X);
-                double ypos = TransformYtoLocal(e.Y);
+                double xpos = coordTransformer.TransformXtoLocal(e.X);
+                double ypos = coordTransformer.TransformYtoLocal(e.Y);
                 for (int i = 0; i < points.Count; i++)
                 {
                     if (Math.Abs(points[i].Coordinates[0] - xpos) < derives.A / 20 && Math.Abs(points[i].Coordinates[1] - ypos) < derives.A / 20)
@@ -155,8 +134,8 @@ namespace Diploma
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    double xpos = TransformXtoLocal(e.X);
-                    double ypos = TransformYtoLocal(e.Y);
+                    double xpos = coordTransformer.TransformXtoLocal(e.X);
+                    double ypos = coordTransformer.TransformYtoLocal(e.Y);
                     for (int i = 0; i < points.Count; i++)
                     {
                         if (Math.Abs(points[i].Coordinates[0] - xpos) < derives.A / 20 && Math.Abs(points[i].Coordinates[1] - ypos) < derives.A / 20)
@@ -182,18 +161,18 @@ namespace Diploma
 
         private void Radius_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(RadiusTextBox.Text, out derives.A);
+            double.TryParse(RadiusTextBox.Text,NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
             Refresh();
         }
 
         private void StraightSpeed_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(StraightSpeedTextBox.Text, out derives.U);
+            double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
         }
 
         private void CircularSpeed_TextChanged(object sender, EventArgs e)
         {
-            double.TryParse(CircularSpeedTextBox.Text, out derives.V);
+            double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
         }
         private void AdvectionForm_SizeChanged(object sender, EventArgs e)
         {
@@ -221,11 +200,10 @@ namespace Diploma
         }
         private void SaveState_Click(object sender, EventArgs e)
         {
-
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                double.TryParse(TimeStepTextBox.Text, out drawState.Dt);
+                double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out drawState.Dt);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(drawState.GetType());
                 MemoryStream ms = new MemoryStream();
                 serializer.WriteObject(ms, drawState);

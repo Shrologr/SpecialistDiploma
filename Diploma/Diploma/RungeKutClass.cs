@@ -28,7 +28,7 @@ namespace Diploma
             yp[1] = -derives.DpsiDx(y.Coordinates[0], y.Coordinates[1], t);
         }
 
-        public void Runge_Kut(CustomPoint coordinate, Derives derives, int timeIndex)
+        public void Runge_Kut(CustomPoint coordinate, Derives derives)
         {
             double[] tma = new double[EquationNumber], tmb = new double[EquationNumber], tmc = new double[EquationNumber], tmd = new double[EquationNumber], tme = new double[EquationNumber], tmf = new double[EquationNumber], yp = new double[EquationNumber];
             double dx = 0.1 * TimeStep, tt = 0;
@@ -77,6 +77,10 @@ namespace Diploma
                 }
             }
             ChangeSide(tt, yp, coordinate, derives);
+            
+        }
+        public void RecalculateTime(int timeIndex) 
+        {
             CurrentTime = EndingTime;
             EndingTime = TimeStep + TimeStep * timeIndex;
         }

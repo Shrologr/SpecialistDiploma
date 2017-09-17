@@ -93,7 +93,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(567, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(15, 13);
+            this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 71;
             this.label2.Text = "U";
             // 
@@ -103,7 +103,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(566, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
+            this.label1.Size = new System.Drawing.Size(13, 13);
             this.label1.TabIndex = 70;
             this.label1.Text = "V";
             // 
@@ -156,25 +156,25 @@
             this.TimeStepTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TimeStepTextBox.Location = new System.Drawing.Point(673, 62);
             this.TimeStepTextBox.Name = "TimeStepTextBox";
-            this.TimeStepTextBox.Size = new System.Drawing.Size(100, 20);
+            this.TimeStepTextBox.Size = new System.Drawing.Size(100, 21);
             this.TimeStepTextBox.TabIndex = 64;
-            this.TimeStepTextBox.Text = "0,01";
+            this.TimeStepTextBox.Text = "0.01";
             // 
             // PeriodTextBox
             // 
             this.PeriodTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PeriodTextBox.Location = new System.Drawing.Point(672, 23);
             this.PeriodTextBox.Name = "PeriodTextBox";
-            this.PeriodTextBox.Size = new System.Drawing.Size(100, 20);
+            this.PeriodTextBox.Size = new System.Drawing.Size(100, 21);
             this.PeriodTextBox.TabIndex = 63;
-            this.PeriodTextBox.Text = "0,04";
+            this.PeriodTextBox.Text = "0.04";
             // 
             // RadiusTextBox
             // 
             this.RadiusTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RadiusTextBox.Location = new System.Drawing.Point(567, 105);
             this.RadiusTextBox.Name = "RadiusTextBox";
-            this.RadiusTextBox.Size = new System.Drawing.Size(100, 20);
+            this.RadiusTextBox.Size = new System.Drawing.Size(100, 21);
             this.RadiusTextBox.TabIndex = 61;
             this.RadiusTextBox.Text = "100";
             this.RadiusTextBox.TextChanged += new System.EventHandler(this.Radius_TextChanged);
@@ -184,7 +184,7 @@
             this.StraightSpeedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.StraightSpeedTextBox.Location = new System.Drawing.Point(566, 63);
             this.StraightSpeedTextBox.Name = "StraightSpeedTextBox";
-            this.StraightSpeedTextBox.Size = new System.Drawing.Size(100, 20);
+            this.StraightSpeedTextBox.Size = new System.Drawing.Size(100, 21);
             this.StraightSpeedTextBox.TabIndex = 60;
             this.StraightSpeedTextBox.Text = "70";
             this.StraightSpeedTextBox.TextChanged += new System.EventHandler(this.StraightSpeed_TextChanged);
@@ -194,7 +194,7 @@
             this.CircularSpeedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CircularSpeedTextBox.Location = new System.Drawing.Point(566, 23);
             this.CircularSpeedTextBox.Name = "CircularSpeedTextBox";
-            this.CircularSpeedTextBox.Size = new System.Drawing.Size(100, 20);
+            this.CircularSpeedTextBox.Size = new System.Drawing.Size(100, 21);
             this.CircularSpeedTextBox.TabIndex = 59;
             this.CircularSpeedTextBox.Text = "150";
             this.CircularSpeedTextBox.TextChanged += new System.EventHandler(this.CircularSpeed_TextChanged);
@@ -230,7 +230,7 @@
             this.WorkingTimeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.WorkingTimeTextBox.Location = new System.Drawing.Point(672, 105);
             this.WorkingTimeTextBox.Name = "WorkingTimeTextBox";
-            this.WorkingTimeTextBox.Size = new System.Drawing.Size(99, 20);
+            this.WorkingTimeTextBox.Size = new System.Drawing.Size(99, 21);
             this.WorkingTimeTextBox.TabIndex = 75;
             // 
             // label6
@@ -239,7 +239,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(673, 89);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.Size = new System.Drawing.Size(82, 13);
             this.label6.TabIndex = 76;
             this.label6.Text = "Час виконання";
             // 
@@ -278,7 +278,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(672, 135);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(14, 13);
+            this.label7.Size = new System.Drawing.Size(13, 13);
             this.label7.TabIndex = 82;
             this.label7.Text = "Y";
             // 
@@ -288,7 +288,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(567, 133);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(14, 13);
+            this.label8.Size = new System.Drawing.Size(13, 13);
             this.label8.TabIndex = 81;
             this.label8.Text = "X";
             // 
@@ -297,7 +297,7 @@
             this.YValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.YValueTextBox.Location = new System.Drawing.Point(672, 154);
             this.YValueTextBox.Name = "YValueTextBox";
-            this.YValueTextBox.Size = new System.Drawing.Size(100, 20);
+            this.YValueTextBox.Size = new System.Drawing.Size(100, 21);
             this.YValueTextBox.TabIndex = 80;
             // 
             // XValueTextBox
@@ -305,7 +305,7 @@
             this.XValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.XValueTextBox.Location = new System.Drawing.Point(567, 154);
             this.XValueTextBox.Name = "XValueTextBox";
-            this.XValueTextBox.Size = new System.Drawing.Size(100, 20);
+            this.XValueTextBox.Size = new System.Drawing.Size(100, 21);
             this.XValueTextBox.TabIndex = 79;
             // 
             // ClearPoincareButton

@@ -34,6 +34,8 @@ namespace Diploma
         PointPairList segregationIntensityValueList;
 
         GridStatistics gridStatistics;
+
+        CoordinateTransformer coordTransform;
         public StatisticsForm()
         {
             r = new Random();
@@ -61,6 +63,7 @@ namespace Diploma
             pane.YAxis.Type = AxisType.Log;
 
             gridStatistics = new GridStatistics();
+            coordTransform = new CoordinateTransformer(DrawPlane, derives);
 
             densityDistributionMeanValueList = new PointPairList();
             densityDistributionRootMeanSquareValueList = new PointPairList();
@@ -136,7 +139,7 @@ namespace Diploma
                     }
                     for (int j = 0; j < points.Count; j++)
                     {
-                        rungeKut.Runge_Kut(points[j], derives, i);
+                        rungeKut.Runge_Kut(points[j], derives);
                         int xindex = (int)((points[j].Coordinates[0] + derives.A) / gridStatistics.cellWidth);
                         int yindex = (int)((points[j].Coordinates[1]) / gridStatistics.cellWidth);
                         if (xindex < 0)
@@ -149,7 +152,7 @@ namespace Diploma
                             yindex = gridStatistics.cells[xindex].Count - 1;
                         gridStatistics.cells[xindex][yindex] += 1.0F / gridStatistics.totalCellCount;
                     }
-                    
+                    rungeKut.RecalculateTime(i);                    
                     if (rungeKut.CurrentTime % calculationPeriod < 0.001)
                     {
                         double rootMeanSquareSum = 0;
@@ -186,8 +189,8 @@ namespace Diploma
 
         void AddNewPoint(List<CustomPoint> pointList, double X, double Y)
         {
-            double x = TransformXtoLocal(X);
-            double y = TransformYtoLocal(Y);
+            double x = coordTransform.TransformXtoLocal(X);
+            double y = coordTransform.TransformYtoLocal(Y);
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
                 pointList.Add(new CustomPoint(new double[] { x, y }, colorDialog.Color));
         }
@@ -210,44 +213,26 @@ namespace Diploma
             e.Graphics.FillRectangle(new SolidBrush(colorDialog.Color), DrawPlane.Width - 20, 9, 20, 10);
             for (int i = 0; i < points.Count; i++)
             {
-                e.Graphics.FillEllipse(points[i].PointBrush, TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
+                e.Graphics.FillEllipse(points[i].PointBrush, coordTransform.TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, coordTransform.TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
             }
-            float currentCellWidth = (float)TransformXtoPlane(gridStatistics.cellWidth) - TransformXtoPlane(0);
-            float currentCellHeight = (float)TransformYtoPlane(0) - TransformYtoPlane(gridStatistics.cellWidth);
+            float currentCellWidth = (float)coordTransform.TransformXtoPlane(gridStatistics.cellWidth) - coordTransform.TransformXtoPlane(0);
+            float currentCellHeight = (float)coordTransform.TransformYtoPlane(0) - coordTransform.TransformYtoPlane(gridStatistics.cellWidth);
             for (int i = 0; i < gridStatistics.cells.Count; i++)
             {
                 for (int j = 0; j < gridStatistics.cells[i].Count; j++)
                 {
-                    e.Graphics.DrawRectangle(new Pen(Color.Black), TransformXtoPlane(-derives.A + i * gridStatistics.cellWidth), TransformYtoPlane((j + 1) * gridStatistics.cellWidth), currentCellWidth, currentCellHeight);
+                    e.Graphics.DrawRectangle(new Pen(Color.Black), coordTransform.TransformXtoPlane(-derives.A + i * gridStatistics.cellWidth), coordTransform.TransformYtoPlane((j + 1) * gridStatistics.cellWidth), currentCellWidth, currentCellHeight);
                 }
             }
         }
-        double TransformXtoLocal(double X)
-        {
-            return (X - DrawPlane.Width / 2) * (float)derives.A / (DrawPlane.Width * 0.4F);
-        }
 
-        double TransformYtoLocal(double Y)
-        {
-            return (DrawPlane.Height * 0.9F - Y) * (float)derives.A / (DrawPlane.Height * 0.8F);
-        }
-
-        float TransformXtoPlane(double X)
-        {
-            return (float)X * 0.4F * DrawPlane.Width / (float)(derives.A) + DrawPlane.Width / 2;
-        }
-
-        float TransformYtoPlane(double Y)
-        {
-            return DrawPlane.Height * 0.9F - (float)Y * DrawPlane.Height * 0.8F / (float)derives.A;
-        }
         private void DrawPlane_MouseDown(object sender, MouseEventArgs e)
         {
             isAddingActive = true;
             if (e.Button == MouseButtons.Right)
             {
-                double xpos = TransformXtoLocal(e.X);
-                double ypos = TransformYtoLocal(e.Y);
+                double xpos = coordTransform.TransformXtoLocal(e.X);
+                double ypos = coordTransform.TransformYtoLocal(e.Y);
                 for (int i = 0; i < points.Count; i++)
                 {
                     if (Math.Abs(points[i].Coordinates[0] - xpos) < derives.A / 20 && Math.Abs(points[i].Coordinates[1] - ypos) < derives.A / 20)
@@ -267,8 +252,8 @@ namespace Diploma
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    double xpos = TransformXtoLocal(e.X);
-                    double ypos = TransformYtoLocal(e.Y);
+                    double xpos = coordTransform.TransformXtoLocal(e.X);
+                    double ypos = coordTransform.TransformYtoLocal(e.Y);
                     for (int i = 0; i < points.Count; i++)
                     {
                         if (Math.Abs(points[i].Coordinates[0] - xpos) < derives.A / 20 && Math.Abs(points[i].Coordinates[1] - ypos) < derives.A / 20)

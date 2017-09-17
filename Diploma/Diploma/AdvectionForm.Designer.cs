@@ -167,7 +167,7 @@
             this.TimeStepTextBox.Name = "TimeStepTextBox";
             this.TimeStepTextBox.Size = new System.Drawing.Size(100, 21);
             this.TimeStepTextBox.TabIndex = 39;
-            this.TimeStepTextBox.Text = "0,01";
+            this.TimeStepTextBox.Text = "0.01";
             // 
             // PeriodTextBox
             // 
@@ -176,7 +176,7 @@
             this.PeriodTextBox.Name = "PeriodTextBox";
             this.PeriodTextBox.Size = new System.Drawing.Size(100, 21);
             this.PeriodTextBox.TabIndex = 38;
-            this.PeriodTextBox.Text = "0,04";
+            this.PeriodTextBox.Text = "0.04";
             // 
             // StopModelingButton
             // 
