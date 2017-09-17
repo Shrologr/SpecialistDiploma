@@ -24,17 +24,16 @@ namespace Diploma
         List<CustomPoint> points;
         ColorDialog colorDialog;
         DrawState drawState;
-        List<List<float>> cells;
-        double cellWidth;
         Random r;
         GraphPane pane;
-        int totalCellCount;
 
         PointPairList densityDistributionMeanValueList;
         PointPairList densityDistributionRootMeanSquareValueList;
         PointPairList mixtureEntropyValueList;
         PointPairList maxMixtureEntropyValueList;
         PointPairList segregationIntensityValueList;
+
+        GridStatistics gridStatistics;
         public StatisticsForm()
         {
             r = new Random();
@@ -61,6 +60,7 @@ namespace Diploma
             pane.YAxis.Title.Text = "Значення";
             pane.YAxis.Type = AxisType.Log;
 
+            gridStatistics = new GridStatistics();
 
             densityDistributionMeanValueList = new PointPairList();
             densityDistributionRootMeanSquareValueList = new PointPairList();
@@ -76,29 +76,28 @@ namespace Diploma
 
             densityDistributionMeanValueListLine.Line.DashOn = 2.0F;
             densityDistributionMeanValueListLine.Line.DashOff = 3.0F;
-            densityDistributionMeanValueListLine.Line.Width = 2.0F;
+            densityDistributionMeanValueListLine.Line.Width = 3.0F;
 
             densityDistributionRootMeanSquareValueLine.Line.DashOn = 2.0F;
             densityDistributionRootMeanSquareValueLine.Line.DashOff = 3.0F;
-            densityDistributionRootMeanSquareValueLine.Line.Width = 2.0F;
+            densityDistributionRootMeanSquareValueLine.Line.Width = 3.0F;
 
             maxMixtureEntropyValueLine.Line.DashOn = 2.0F;
             maxMixtureEntropyValueLine.Line.DashOff = 3.0F;
-            maxMixtureEntropyValueLine.Line.Width = 2.0F;
+            maxMixtureEntropyValueLine.Line.Width = 3.0F;
 
             mixtureEntropyValueLine.Line.DashOn = 2.0F;
             mixtureEntropyValueLine.Line.DashOff = 3.0F;
-            mixtureEntropyValueLine.Line.Width = 2.0F;
+            mixtureEntropyValueLine.Line.Width = 3.0F;
 
             segregationIntensityValueLine.Line.DashOn = 2.0F;
             segregationIntensityValueLine.Line.DashOff = 3.0F;
-            segregationIntensityValueLine.Line.Width = 2.0F;
+            segregationIntensityValueLine.Line.Width = 3.0F;
 
             double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
             double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
             double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
             double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
-            cells = new List<List<float>>();
             BuildGrid();
         }
 
@@ -117,18 +116,16 @@ namespace Diploma
             StartModelingButton.Enabled = false;
             isActive = true;
             DrawPlane.Refresh();
-            int eNumber = 2;
             FormCall caller = DrawPlane.Refresh;
             FormCall graphCaller = RedrawGraph;
-            double t = 0.0, dt = 0.002, tend = 0.002, calculationPeriod = 0;
+            RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
+            double calculationPeriod = 0;
             double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
             double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
             double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
             double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
             double.TryParse(CalculationPeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod);
-            dt = 0.01;
-            tend = dt;
-            drawState.Dt = dt;
+            drawState.Dt =  rungeKut.TimeStep;
             await Task.Run(() =>
             {
                 for (int i = 1; isActive; i++)
@@ -139,61 +136,40 @@ namespace Diploma
                     }
                     for (int j = 0; j < points.Count; j++)
                     {
-                        RungeKutClass.Runge_Kut(eNumber, t, tend, dt, points[j], derives);
-                        int xindex = (int)((points[j].Coordinates[0] + derives.A) / cellWidth);
-                        int yindex = (int)((points[j].Coordinates[1]) / cellWidth);
-                        cells[xindex][yindex] += 1.0F / totalCellCount;
+                        rungeKut.Runge_Kut(points[j], derives, i);
+                        int xindex = (int)((points[j].Coordinates[0] + derives.A) / gridStatistics.cellWidth);
+                        int yindex = (int)((points[j].Coordinates[1]) / gridStatistics.cellWidth);
+                        if (xindex < 0)
+                            xindex = 0;
+                        if (xindex >= gridStatistics.cells.Count)
+                            xindex = gridStatistics.cells.Count - 1;
+                        if (yindex < 0)
+                            yindex = 0;
+                        if (yindex >= gridStatistics.cells[xindex].Count)
+                            yindex = gridStatistics.cells[xindex].Count - 1;
+                        gridStatistics.cells[xindex][yindex] += 1.0F / gridStatistics.totalCellCount;
                     }
-                    t = tend;
-                    tend = dt + dt * i;
-                    if (t % calculationPeriod < 0.001)
+                    
+                    if (rungeKut.CurrentTime % calculationPeriod < 0.001)
                     {
                         double rootMeanSquareSum = 0;
-                        double sum = 0;
+                        double meanSum = 0;
                         double maxEntropy = 0;
                         double entropy = 0;
                         double intensity = 0;
-                        for (int j = 0; j < cells.Count; j++)
-                        {
-                            for (int k = 0; k < cells[j].Count; k++)
-                            {
-                                sum += cells[j][k];
-                                rootMeanSquareSum += Math.Pow(cells[j][k], 2);
-                                entropy += cells[j][k] * ((cells[j][k] == 0) ? 1 : Math.Log(cells[j][k]));
-                            }
-                        }
-                        rootMeanSquareSum /= totalCellCount;
-                        entropy /= -totalCellCount;
-                        sum /= totalCellCount;
 
-                        for (int j = 0; j < cells.Count; j++)
-                        {
-                            for (int k = 0; k < cells[j].Count; k++)
-                            {
-                                intensity += Math.Pow(cells[j][k] - sum, 2);
-                            }
-                        }
-                        intensity /= totalCellCount;
-                        intensity /= sum * (1 - sum);
-                        maxEntropy = -sum * Math.Log(sum);
-                        sum = Math.Pow(sum, 2);
+                        gridStatistics.CalculateValues(ref meanSum, ref rootMeanSquareSum, ref entropy, ref maxEntropy, ref intensity);
 
-                        densityDistributionMeanValueList.Add(t, sum);
-                        densityDistributionRootMeanSquareValueList.Add(t, rootMeanSquareSum);
-                        mixtureEntropyValueList.Add(t, entropy);
-                        maxMixtureEntropyValueList.Add(t, maxEntropy);
-                        segregationIntensityValueList.Add(t, intensity);
+                        densityDistributionMeanValueList.Add(rungeKut.CurrentTime, meanSum);
+                        densityDistributionRootMeanSquareValueList.Add(rungeKut.CurrentTime, rootMeanSquareSum);
+                        mixtureEntropyValueList.Add(rungeKut.CurrentTime, entropy);
+                        maxMixtureEntropyValueList.Add(rungeKut.CurrentTime, maxEntropy);
+                        segregationIntensityValueList.Add(rungeKut.CurrentTime, intensity);
                     }
                     this.Invoke(caller);
                     this.Invoke(graphCaller);
                     System.Threading.Thread.Sleep(1);
-                    for (int j = 0; j < cells.Count; j++)
-                    {
-                        for (int k = 0; k < cells[j].Count; k++)
-                        {
-                            cells[j][k] = 0;
-                        }
-                    }
+                    gridStatistics.ClearGrid();
                 }
             });
             points.Clear();
@@ -236,13 +212,13 @@ namespace Diploma
             {
                 e.Graphics.FillEllipse(points[i].PointBrush, TransformXtoPlane(points[i].Coordinates[0]) - 1.5F, TransformYtoPlane(points[i].Coordinates[1]) - 1.5F, 3, 3);
             }
-            float currentCellWidth = (float)TransformXtoPlane(cellWidth) - TransformXtoPlane(0);
-            float currentCellHeight = (float)TransformYtoPlane(0) - TransformYtoPlane(cellWidth);
-            for (int i = 0; i < cells.Count; i++)
+            float currentCellWidth = (float)TransformXtoPlane(gridStatistics.cellWidth) - TransformXtoPlane(0);
+            float currentCellHeight = (float)TransformYtoPlane(0) - TransformYtoPlane(gridStatistics.cellWidth);
+            for (int i = 0; i < gridStatistics.cells.Count; i++)
             {
-                for (int j = 0; j < cells[i].Count; j++)
+                for (int j = 0; j < gridStatistics.cells[i].Count; j++)
                 {
-                    e.Graphics.DrawRectangle(new Pen(Color.Black), TransformXtoPlane(-derives.A + i * cellWidth), TransformYtoPlane((j + 1) * cellWidth), currentCellWidth, currentCellHeight);
+                    e.Graphics.DrawRectangle(new Pen(Color.Black), TransformXtoPlane(-derives.A + i * gridStatistics.cellWidth), TransformYtoPlane((j + 1) * gridStatistics.cellWidth), currentCellWidth, currentCellHeight);
                 }
             }
         }
@@ -357,7 +333,6 @@ namespace Diploma
         }
         private void SaveState_Click(object sender, EventArgs e)
         {
-
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -385,33 +360,16 @@ namespace Diploma
                 RadiusTextBox.Text = drawState.DeriveData.A.ToString();
                 PeriodTextBox.Text = drawState.DeriveData.Period.ToString();
                 DrawPlane.Refresh();
-
             }
         }
 
         private void BuildGrid()
         {
-            if (!double.TryParse(CellNumberTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out cellWidth))
+            if (!double.TryParse(CellNumberTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out gridStatistics.cellWidth))
             {
                 return;
             }
-            totalCellCount = 0;
-            cells.Clear();
-            cells.AddRange(new List<float>[(int)(derives.A * 2 / cellWidth) + (((derives.A * 2) % cellWidth != 0) ? 1 : 0)]);
-            for (int i = 0; i < cells.Count; i++)
-            {
-                cells[i] = new List<float>();
-                cells[i].AddRange(new float[(int)(derives.A / cellWidth) + ((derives.A % cellWidth != 0) ? 1 : 0)]);
-                for (int j = 0; j < cells[i].Count; j++)
-                {
-                    if (Math.Sqrt(Math.Pow(i * cellWidth - derives.A, 2) + Math.Pow(j * cellWidth, 2)) > derives.A && Math.Sqrt(Math.Pow((i + 1) * cellWidth - derives.A, 2) + Math.Pow(j * cellWidth, 2)) > derives.A)
-                    {
-                        cells[i].RemoveRange(j, cells[i].Count - j);
-                        break;
-                    }
-                    totalCellCount++;
-                }
-            }
+            gridStatistics.ConstructGrid(derives);
         }
         private void CellNumberTextBox_TextChanged(object sender, EventArgs e)
         {
