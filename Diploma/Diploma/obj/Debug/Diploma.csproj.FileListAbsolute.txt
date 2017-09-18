@@ -26,3 +26,4 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\Diploma\bin\Debug\z
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\Diploma\bin\Debug\zh-tw\ZedGraph.resources.dll
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\Diploma\obj\Debug\Diploma.exe
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\Diploma\obj\Debug\Diploma.pdb
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\Diploma\obj\Debug\Diploma.LiapunovForm.resources

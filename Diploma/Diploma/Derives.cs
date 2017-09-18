@@ -84,7 +84,7 @@ namespace Diploma
         {
             return (-2 * U) / (Pi * Pi - 4) * ((Pi * A - 2 * y) / (A) * Math.Atan((2 * A * y) / (A * A - x * x - y * y))
                + (2 * (A * A - x * x - y * y) + 4 * y * y) / (4 * A * A * y * y + Math.Pow((A * A - x * x - y * y), 2))
-                * (Pi * A * y + A*A - x*x - y*y) - Pi* Pi * 0.5);
+                * (Pi * A * y + A * A - x * x - y * y) - Pi * Pi * 0.5);
         }
 
         public double DpsiBDx(double x, double y)
@@ -92,6 +92,23 @@ namespace Diploma
             return (-2 * U) / (Pi * Pi - 4) * ((-2 * x) / (A) * Math.Atan((2 * A * y) / (A * A - x * x - y * y))
                  + (4 * x * y) / (4 * A * A * y * y + Math.Pow((A * A - x * x - y * y), 2))
                 * (Pi * A * y + A * A - x * x - y * y));
+        }
+
+        public double DuDx(double x, double y, double t)
+        {
+            return (DpsiDy(x + 0.001, y, t) - DpsiDy(x, y, t)) / 0.001;
+        }
+        public double DuDy(double x, double y, double t)
+        {
+            return (DpsiDy(x, y + 0.001, t) - DpsiDy(x, y, t)) / 0.001;
+        }
+        public double DvDx(double x, double y, double t)
+        {
+            return (DpsiDx(x + 0.001, y, t) - DpsiDx(x, y, t)) / -0.001;
+        }
+        public double DvDy(double x, double y, double t)
+        {
+            return (DpsiDx(x, y + 0.001, t) - DpsiDx(x, y, t)) / -0.001;
         }
     }
 }

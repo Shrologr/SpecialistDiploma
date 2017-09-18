@@ -294,7 +294,7 @@ namespace Diploma
             this.zedGraph.ScrollMinX = 0D;
             this.zedGraph.ScrollMinY = 0D;
             this.zedGraph.ScrollMinY2 = 0D;
-            this.zedGraph.Size = new System.Drawing.Size(512, 434);
+            this.zedGraph.Size = new System.Drawing.Size(681, 434);
             this.zedGraph.TabIndex = 1;
             // 
             // CalculationTimeTextBox
@@ -376,7 +376,7 @@ namespace Diploma
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(693, 446);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Адвекція";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -385,9 +385,9 @@ namespace Diploma
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(604, 446);
+            this.tabPage2.Size = new System.Drawing.Size(693, 446);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Графік";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // StatisticsForm
@@ -422,7 +422,7 @@ namespace Diploma
             this.Controls.Add(this.StartModelingButton);
             this.Name = "StatisticsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Адвекція рідини";
+            this.Text = "Статистичні дані";
             this.SizeChanged += new System.EventHandler(this.AdvectionForm_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.DrawPlane)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PointNumberUpDown)).EndInit();

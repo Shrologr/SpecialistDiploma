@@ -36,5 +36,10 @@ namespace Diploma
         {
             new StatisticsForm().Show();
         }
+
+        private void LiapunovButton_Click(object sender, EventArgs e)
+        {
+            new LiapunovForm().Show();
+        }
     }
 }

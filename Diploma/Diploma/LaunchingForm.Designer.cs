@@ -38,6 +38,7 @@
             this.PuankareWindowCallButton = new System.Windows.Forms.Button();
             this.TrajectoryWindowCallButton = new System.Windows.Forms.Button();
             this.StatisticsWindowCallButton = new System.Windows.Forms.Button();
+            this.LiapunovButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AdvectionDrawPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PuankareDrawPicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrajectoryDrawPicture)).BeginInit();
@@ -47,7 +48,7 @@
             // 
             this.HeaderLabel.AutoSize = true;
             this.HeaderLabel.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.HeaderLabel.Location = new System.Drawing.Point(115, 45);
+            this.HeaderLabel.Location = new System.Drawing.Point(303, 46);
             this.HeaderLabel.Name = "HeaderLabel";
             this.HeaderLabel.Size = new System.Drawing.Size(564, 52);
             this.HeaderLabel.TabIndex = 0;
@@ -58,7 +59,7 @@
             // 
             this.AuthorLabel.AutoSize = true;
             this.AuthorLabel.Font = new System.Drawing.Font("Times New Roman", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AuthorLabel.Location = new System.Drawing.Point(191, 109);
+            this.AuthorLabel.Location = new System.Drawing.Point(379, 110);
             this.AuthorLabel.Name = "AuthorLabel";
             this.AuthorLabel.Size = new System.Drawing.Size(416, 23);
             this.AuthorLabel.TabIndex = 1;
@@ -126,7 +127,7 @@
             // 
             // StatisticsWindowCallButton
             // 
-            this.StatisticsWindowCallButton.Location = new System.Drawing.Point(768, 302);
+            this.StatisticsWindowCallButton.Location = new System.Drawing.Point(941, 302);
             this.StatisticsWindowCallButton.Name = "StatisticsWindowCallButton";
             this.StatisticsWindowCallButton.Size = new System.Drawing.Size(176, 44);
             this.StatisticsWindowCallButton.TabIndex = 8;
@@ -134,12 +135,23 @@
             this.StatisticsWindowCallButton.UseVisualStyleBackColor = true;
             this.StatisticsWindowCallButton.Click += new System.EventHandler(this.StatisticsWindowCallButton_Click);
             // 
+            // LiapunovButton
+            // 
+            this.LiapunovButton.Location = new System.Drawing.Point(749, 302);
+            this.LiapunovButton.Name = "LiapunovButton";
+            this.LiapunovButton.Size = new System.Drawing.Size(176, 44);
+            this.LiapunovButton.TabIndex = 9;
+            this.LiapunovButton.Text = "Показник Ляпунова";
+            this.LiapunovButton.UseVisualStyleBackColor = true;
+            this.LiapunovButton.Click += new System.EventHandler(this.LiapunovButton_Click);
+            // 
             // LaunchingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(973, 362);
+            this.ClientSize = new System.Drawing.Size(1129, 362);
+            this.Controls.Add(this.LiapunovButton);
             this.Controls.Add(this.StatisticsWindowCallButton);
             this.Controls.Add(this.TrajectoryWindowCallButton);
             this.Controls.Add(this.PuankareWindowCallButton);
@@ -171,5 +183,6 @@
         private System.Windows.Forms.Button PuankareWindowCallButton;
         private System.Windows.Forms.Button TrajectoryWindowCallButton;
         private System.Windows.Forms.Button StatisticsWindowCallButton;
+        private System.Windows.Forms.Button LiapunovButton;
     }
 }

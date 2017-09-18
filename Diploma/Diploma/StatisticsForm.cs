@@ -20,7 +20,6 @@ namespace Diploma
         bool isActive, isPaused;
         public delegate void FormCall();
         Derives derives;
-        Pen axisPen = new Pen(Color.Black, 2.5F);
         List<CustomPoint> points;
         ColorDialog colorDialog;
         DrawState drawState;
@@ -199,7 +198,7 @@ namespace Diploma
 
         private void DrawPlane_Paint(object sender, PaintEventArgs e)
         {
-
+            Pen axisPen = new Pen(Color.Black, 2.5F);
             e.Graphics.DrawArc(axisPen, DrawPlane.Width * 0.1F, DrawPlane.Height * 0.1F, DrawPlane.Width * 0.8F, DrawPlane.Height * 1.6F, 180.0F, 180.0F);
             e.Graphics.DrawLine(axisPen, DrawPlane.Width / 2, DrawPlane.Height * 0.9F, DrawPlane.Width / 2, 0);
             e.Graphics.DrawLine(axisPen, 0, DrawPlane.Height * 0.9F, DrawPlane.Width, DrawPlane.Height * 0.9F);
