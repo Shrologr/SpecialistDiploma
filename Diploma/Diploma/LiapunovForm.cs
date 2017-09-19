@@ -213,5 +213,17 @@ namespace Diploma
             colorDialog.ShowDialog();
             Refresh();
         }
+
+        private void NewPointButton_Click(object sender, EventArgs e)
+        {
+            double x = 0, y = 0;
+            if (double.TryParse(XValueTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out x) && double.TryParse(YValueTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out y))
+            {
+                x = coordTransformer.TransformXtoPlane(x);
+                y = coordTransformer.TransformYtoPlane(y);
+                AddNewPoint(liapunovPoint, x, y);
+            }
+            DrawPlane.Refresh();
+        }
     }
 }

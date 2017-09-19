@@ -115,22 +115,23 @@ namespace Diploma
             mixtureEntropyValueList.Clear();
             maxMixtureEntropyValueList.Clear();
             segregationIntensityValueList.Clear();
-            StartModelingButton.Enabled = false;
             isActive = true;
             DrawPlane.Refresh();
             FormCall caller = DrawPlane.Refresh;
             FormCall graphCaller = RedrawGraph;
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
-            double calculationPeriod = 0;
+            double calculationPeriod = 0, calculationTime = 0;
             double.TryParse(CircularSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.V);
             double.TryParse(StraightSpeedTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.U);
             double.TryParse(RadiusTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.A);
             double.TryParse(PeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out derives.Period);
             double.TryParse(CalculationPeriodTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod);
+            double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationTime);
             drawState.Dt =  rungeKut.TimeStep;
+            StartModelingButton.Enabled = false;
             await Task.Run(() =>
             {
-                for (int i = 1; isActive; i++)
+                for (int i = 1; isActive && rungeKut.CurrentTime <= calculationTime; i++)
                 {
                     while (isPaused)
                     {
@@ -174,7 +175,6 @@ namespace Diploma
                     gridStatistics.ClearGrid();
                 }
             });
-            points.Clear();
             DrawPlane.Refresh();
         }
 

@@ -48,6 +48,11 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.zedGraph = new ZedGraph.ZedGraphControl();
+            this.XValueTextBox = new System.Windows.Forms.TextBox();
+            this.YValueTextBox = new System.Windows.Forms.TextBox();
+            this.NewPointButton = new System.Windows.Forms.Button();
+            this.XLabel = new System.Windows.Forms.Label();
+            this.YLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DrawPlane)).BeginInit();
             this.LiapunovTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -248,6 +253,9 @@
             // 
             // zedGraph
             // 
+            this.zedGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.zedGraph.Location = new System.Drawing.Point(6, 6);
             this.zedGraph.Name = "zedGraph";
             this.zedGraph.ScrollGrace = 0D;
@@ -260,11 +268,65 @@
             this.zedGraph.Size = new System.Drawing.Size(520, 263);
             this.zedGraph.TabIndex = 0;
             // 
+            // XValueTextBox
+            // 
+            this.XValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.XValueTextBox.Location = new System.Drawing.Point(557, 160);
+            this.XValueTextBox.Name = "XValueTextBox";
+            this.XValueTextBox.Size = new System.Drawing.Size(100, 21);
+            this.XValueTextBox.TabIndex = 61;
+            this.XValueTextBox.Text = "0";
+            // 
+            // YValueTextBox
+            // 
+            this.YValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.YValueTextBox.Location = new System.Drawing.Point(663, 159);
+            this.YValueTextBox.Name = "YValueTextBox";
+            this.YValueTextBox.Size = new System.Drawing.Size(100, 21);
+            this.YValueTextBox.TabIndex = 62;
+            this.YValueTextBox.Text = "0";
+            // 
+            // NewPointButton
+            // 
+            this.NewPointButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NewPointButton.Location = new System.Drawing.Point(557, 188);
+            this.NewPointButton.Name = "NewPointButton";
+            this.NewPointButton.Size = new System.Drawing.Size(206, 23);
+            this.NewPointButton.TabIndex = 63;
+            this.NewPointButton.Text = "Змінити координати";
+            this.NewPointButton.UseVisualStyleBackColor = true;
+            this.NewPointButton.Click += new System.EventHandler(this.NewPointButton_Click);
+            // 
+            // XLabel
+            // 
+            this.XLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.XLabel.AutoSize = true;
+            this.XLabel.Location = new System.Drawing.Point(557, 144);
+            this.XLabel.Name = "XLabel";
+            this.XLabel.Size = new System.Drawing.Size(13, 13);
+            this.XLabel.TabIndex = 64;
+            this.XLabel.Text = "X";
+            // 
+            // YLabel
+            // 
+            this.YLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.YLabel.AutoSize = true;
+            this.YLabel.Location = new System.Drawing.Point(663, 144);
+            this.YLabel.Name = "YLabel";
+            this.YLabel.Size = new System.Drawing.Size(13, 13);
+            this.YLabel.TabIndex = 65;
+            this.YLabel.Text = "Y";
+            // 
             // LiapunovForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 325);
+            this.Controls.Add(this.YLabel);
+            this.Controls.Add(this.XLabel);
+            this.Controls.Add(this.NewPointButton);
+            this.Controls.Add(this.YValueTextBox);
+            this.Controls.Add(this.XValueTextBox);
             this.Controls.Add(this.LiapunovTabControl);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -314,5 +376,10 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private ZedGraph.ZedGraphControl zedGraph;
+        private System.Windows.Forms.TextBox XValueTextBox;
+        private System.Windows.Forms.TextBox YValueTextBox;
+        private System.Windows.Forms.Button NewPointButton;
+        private System.Windows.Forms.Label XLabel;
+        private System.Windows.Forms.Label YLabel;
     }
 }
