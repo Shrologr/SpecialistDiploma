@@ -1,0 +1,146 @@
+﻿<Window x:Class="WpfDiploma.AdvectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:WpfDiploma"
+        FontFamily="Courier New"
+        Title="Адвекція" Height="688.06" Width="525.374">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.1*"></RowDefinition>
+            <RowDefinition Height="1.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Row="0" Header="Введення даних адвекції" FontSize="12">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox" TextChanged="AdvectionDataChanged">
+                    <TextBox.ToolTip>
+                        Швидкість, з якою рухається кругова границя півкола
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox" TextChanged="AdvectionDataChanged">
+                    <TextBox.ToolTip>
+                        Швидкість, з якою рухається нижня прямолінійна границя півкола
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox" TextChanged="AdvectionDataChanged">
+                    <TextBox.ToolTip>
+                        Період повного обертання півкола (нижньої та верхньої границі)
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
+                    <TextBox.ToolTip>
+                        Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
+                    </TextBox.ToolTip>
+                </TextBox>
+                <TextBox Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
+                    <TextBox.ToolTip>
+                        Радіус півкола
+                    </TextBox.ToolTip>
+                </TextBox>
+
+                <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
+                <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
+                <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
+                <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
+                <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
+
+                <GroupBox Grid.RowSpan="5" Grid.Column="2" Header="Введення точок">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Slider Grid.Row="1" Name="PointNumberSlider" Maximum="100" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True">
+
+                        </Slider>
+                        <Slider Grid.Row="3" Name="PointSizeSlider" Maximum="100" Minimum="0" TickFrequency="1" IsSnapToTickEnabled="True">
+
+                        </Slider>
+
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
+
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Кількість точок"></Label>
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Розмір 'плями'"></Label>
+
+                        <xctk:ColorPicker Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker"></xctk:ColorPicker>
+                        <Label Grid.Row="4" Grid.ColumnSpan="2" Content="Колір точок"></Label>
+
+                    </Grid>
+
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <local:PersonalUIElement x:Name="someElement" Grid.Row="1"></local:PersonalUIElement>
+        <Grid Grid.Row="2" Name="StartStopGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="StartPauseButton" Grid.Column="0">
+                <Image Name="someImage" Source="D:\\start.ico"></Image>
+            </Button>
+            <Button Name="StopButton" Grid.Column="1">
+                <Image Source="D:\\Stop.ico"></Image>
+            </Button>
+        </Grid>
+        
+        
+        
+        <GroupBox Grid.Row="3" Header="Збереження та завантаження даних адвекції" FontSize="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="SaveDataButton" Grid.Column="0">
+                    <Image Source="D:\\Save.ico"></Image>
+                </Button>
+                <Button Name="LoadDataButton" Grid.Column="1">
+                    <Image Source="D:\\Load.png"></Image>
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Grid.Row="4" Header="Збереження та завантаження зображення" FontSize="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Name="SavePictureButton" Grid.Column="0">
+                    <Image Source="D:\\Save.ico"></Image>
+                </Button>
+                <Button Name="LoadPictureButton" Grid.Column="1">
+                    <Image Source="D:\\Load.png"></Image>
+                </Button>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

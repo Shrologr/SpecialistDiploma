@@ -29,5 +29,10 @@ namespace WpfDiploma
         {
             Close();
         }
+
+        private void AdvectionCallButton_Click(object sender, RoutedEventArgs e)
+        {
+            new AdvectionWindow().Show();
+        }
     }
 }
