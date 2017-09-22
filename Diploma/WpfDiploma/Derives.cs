@@ -23,10 +23,10 @@ namespace WpfDiploma
 
         public bool SetData(string straightSpeed, string rotatingSpeed, string radius, string workPeriod)
         {
-            if (double.TryParse(straightSpeed, out V) &&
-                double.TryParse(rotatingSpeed, out U) &&
-                double.TryParse(radius, out A) &&
-                double.TryParse(workPeriod, out Period))
+            if (double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out V) &&
+                double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out U) &&
+                double.TryParse(radius, NumberStyles.Float, CultureInfo.InvariantCulture, out A) &&
+                double.TryParse(workPeriod, NumberStyles.Float, CultureInfo.InvariantCulture, out Period))
             {
                 V /= A;
                 U /= A;
