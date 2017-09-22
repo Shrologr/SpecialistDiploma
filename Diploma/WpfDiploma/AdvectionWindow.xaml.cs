@@ -22,6 +22,7 @@ namespace WpfDiploma
     {
         bool isAddingActive;
         bool isActive, isPaused;
+        bool isReadable;
         public delegate void PictureBoxCall();
         Derives derives;
         List<CustomPoint> points;
@@ -30,21 +31,29 @@ namespace WpfDiploma
         CoordinateTransformer coordTransformer;
         public AdvectionWindow()
         {
+            isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
             derives = new Derives();
             advectionState = new DrawState(derives, 0, 0, points);
             InitializeComponent();
+            coordTransformer = new CoordinateTransformer(uiElement, derives);
             uiElement.CoordTransformer = coordTransformer;
             uiElement.Points = points;
-            coordTransformer = new CoordinateTransformer(uiElement, derives);
             derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+            uiElement.MouseDown += uiElement_MouseDown;
+            uiElement.MouseUp += uiElement_MouseUp;
+            uiElement.MouseMove += uiElement_MouseMove;
+            isReadable = true ;
         }
 
         private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
         {
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
-            uiElement.InvalidateVisual();
+            if (isReadable)
+            {
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+                uiElement.InvalidateVisual();
+            }
         }
 
         private void uiElement_MouseDown(object sender, MouseButtonEventArgs e)
@@ -60,12 +69,11 @@ namespace WpfDiploma
                         points.RemoveAt(i);
                 }
             }
-            else
-                if (e.LeftButton == MouseButtonState.Pressed)
-                    for (int i = 0; i < PointNumberSlider.Value; i++)
-                    {
-                        AddNewPoint(points, e.GetPosition(uiElement).X + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value), e.GetPosition(uiElement).Y + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value));
-                    }
+            if (e.LeftButton == MouseButtonState.Pressed)
+                for (int i = 0; i < PointNumberSlider.Value; i++)
+                {
+                    AddNewPoint(points, e.GetPosition(uiElement).X + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value), e.GetPosition(uiElement).Y + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value));
+                }
             uiElement.InvalidateVisual();
         }
 
@@ -83,12 +91,11 @@ namespace WpfDiploma
                             points.RemoveAt(i);
                     }
                 }
-                else
-                    if (e.LeftButton == MouseButtonState.Pressed)
-                        for (int i = 0; i < PointNumberSlider.Value; i++)
-                        {
-                            AddNewPoint(points, e.GetPosition(uiElement).X + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value), e.GetPosition(uiElement).Y + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value));
-                        }
+                if (e.LeftButton == MouseButtonState.Pressed)
+                    for (int i = 0; i < PointNumberSlider.Value; i++)
+                    {
+                        AddNewPoint(points, e.GetPosition(uiElement).X + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value), e.GetPosition(uiElement).Y + pointRandom.Next(Convert.ToInt32(PointSizeSlider.Value) * 2) - Convert.ToInt32(PointSizeSlider.Value));
+                    }
                 uiElement.InvalidateVisual();
             }
         }
@@ -108,7 +115,7 @@ namespace WpfDiploma
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            
+            uiElement.InvalidateVisual();
         }
     }
 }

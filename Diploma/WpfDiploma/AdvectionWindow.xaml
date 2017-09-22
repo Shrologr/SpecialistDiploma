@@ -31,27 +31,27 @@
                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="1.5" Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox" TextChanged="AdvectionDataChanged">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається кругова границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="0.7" Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox" TextChanged="AdvectionDataChanged">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається нижня прямолінійна границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="5" Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox" TextChanged="AdvectionDataChanged">
                     <TextBox.ToolTip>
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
+                <TextBox Text="0.01" Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
                     <TextBox.ToolTip>
                         Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="1" Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
                     <TextBox.ToolTip>
                         Радіус півкола
                     </TextBox.ToolTip>
@@ -90,7 +90,7 @@
                         <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Кількість точок"></Label>
                         <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Розмір 'плями'"></Label>
 
-                        <xctk:ColorPicker Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker"></xctk:ColorPicker>
+                        <xctk:ColorPicker Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
                         <Label Grid.Row="4" Grid.ColumnSpan="2" Content="Колір точок"></Label>
 
                     </Grid>
@@ -99,7 +99,7 @@
             </Grid>
         </GroupBox>
 
-        <local:PersonalUIElement x:Name="uiElement" Grid.Row="1" MouseDown="uiElement_MouseDown" MouseUp="uiElement_MouseUp" MouseMove="uiElement_MouseMove"></local:PersonalUIElement>
+        <local:PersonalUIElement x:Name="uiElement" Grid.Row="1"></local:PersonalUIElement>
         
         <Grid Grid.Row="2" Name="StartStopGrid">
             <Grid.ColumnDefinitions>

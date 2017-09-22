@@ -1,7 +1,6 @@
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\WpfDiploma.exe.config
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\WpfDiploma.exe
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\WpfDiploma.pdb
-C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma.csprojResolveAssemblyReference.cache
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\MainWindow.baml
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\MainWindow.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\App.g.cs
@@ -33,3 +32,4 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debu
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PersonalUIElement.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma_MarkupCompile.lref
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma.csprojResolveAssemblyReference.cache

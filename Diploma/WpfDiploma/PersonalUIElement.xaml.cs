@@ -25,12 +25,14 @@ namespace WpfDiploma
         public PersonalUIElement()
         {
             InitializeComponent();
+            Points = new List<CustomPoint>();
+            CoordTransformer = new CoordinateTransformer();
         }
 
         protected override void OnRender(DrawingContext drawingContext)
         {
-            base.OnRender(drawingContext);
             Pen axisPen = new Pen(new SolidColorBrush(Colors.Black), 2.5);
+            drawingContext.DrawRectangle(new SolidColorBrush(Colors.White), new Pen(new SolidColorBrush(Colors.White), 2.5), new Rect(0, 0, ActualWidth, ActualHeight));
             drawingContext.DrawLine(axisPen, new Point(ActualWidth / 2, ActualHeight * 0.9F), new Point(ActualWidth / 2, 0));
             drawingContext.DrawLine(axisPen, new Point(0, ActualHeight * 0.9F), new Point(ActualWidth, ActualHeight * 0.9F));
             double x0 = ActualWidth / 2 + ActualWidth * 0.4 * Math.Cos(0);
@@ -47,6 +49,7 @@ namespace WpfDiploma
             {
                 drawingContext.DrawEllipse(Points[i].PointBrush, new Pen(Points[i].PointBrush, 2.0), new Point(CoordTransformer.TransformXtoPlane(Points[i].Coordinates[0]), CoordTransformer.TransformYtoPlane(Points[i].Coordinates[1])), 1.5, 1.5);
             }
+            base.OnRender(drawingContext);
         }
     }
 }
