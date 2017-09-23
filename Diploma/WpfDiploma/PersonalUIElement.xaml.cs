@@ -21,11 +21,13 @@ namespace WpfDiploma
     public partial class PersonalUIElement : UserControl
     {
         public List<CustomPoint> Points { get; set; }
+        public List<CustomPoint> TrajectoryPoints { get; set; }
         public CoordinateTransformer CoordTransformer { get; set; }
         public PersonalUIElement()
         {
             InitializeComponent();
             Points = new List<CustomPoint>();
+            TrajectoryPoints = new List<CustomPoint>();
             CoordTransformer = new CoordinateTransformer();
         }
 
@@ -48,6 +50,10 @@ namespace WpfDiploma
             for (int i = 0; i < Points.Count; i++)
             {
                 drawingContext.DrawEllipse(Points[i].PointBrush, new Pen(Points[i].PointBrush, 2.0), new Point(CoordTransformer.TransformXtoPlane(Points[i].Coordinates[0]), CoordTransformer.TransformYtoPlane(Points[i].Coordinates[1])), 1.5, 1.5);
+            }
+            for (int j = 0; j < TrajectoryPoints.Count - Points.Count; j++)
+            {
+                drawingContext.DrawLine(new Pen(TrajectoryPoints[j].PointBrush, 1.5), new Point(CoordTransformer.TransformXtoPlane(TrajectoryPoints[j].Coordinates[0]), CoordTransformer.TransformYtoPlane(TrajectoryPoints[j].Coordinates[1])), new Point(CoordTransformer.TransformXtoPlane(TrajectoryPoints[j + Points.Count].Coordinates[0]), CoordTransformer.TransformYtoPlane(TrajectoryPoints[j + Points.Count].Coordinates[1])));
             }
             base.OnRender(drawingContext);
         }

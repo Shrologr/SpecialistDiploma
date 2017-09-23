@@ -71,6 +71,9 @@
       <DependentUpon>PersonalUIElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="RungeKutClass.cs" />
+    <Compile Include="TrajectoryWindow.xaml.cs">
+      <DependentUpon>TrajectoryWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="AdvectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +103,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PersonalUIElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TrajectoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
