@@ -106,10 +106,10 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Name="StartPauseButton" Grid.Column="0">
-                <Image Name="someImage" Source="D:\\start.ico"></Image>
+            <Button Name="StartPauseButton" Grid.Column="0" Click="StartPauseButton_Click">
+                <Image Name="StartPauseImage" Source="D:\\start.ico"></Image>
             </Button>
-            <Button Name="StopButton" Grid.Column="1">
+            <Button Name="StopButton" Grid.Column="1" Click="StopButton_Click">
                 <Image Source="D:\\Stop.ico"></Image>
             </Button>
         </Grid>
