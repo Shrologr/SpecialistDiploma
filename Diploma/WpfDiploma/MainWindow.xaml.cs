@@ -35,9 +35,15 @@ namespace WpfDiploma
             new AdvectionWindow().Show();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PoincareWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            new PoincareWindow().Show();
+        }
+
+        private void TrajectoryWindowButton_Click(object sender, RoutedEventArgs e)
         {
             new TrajectoryWindow().Show();
+
         }
     }
 }

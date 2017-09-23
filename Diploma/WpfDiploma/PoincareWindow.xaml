@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfDiploma.TrajectoryWindow"
+﻿<Window x:Class="WpfDiploma.PoincareWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,19 +8,20 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Траєкторія" Height="688.06" Width="535.374">
+        Title="Перетин Пуанкаре" Height="688.06" Width="535.374">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1.15*"></RowDefinition>
+            <RowDefinition Height="1.1*"></RowDefinition>
             <RowDefinition Height="1.6*"></RowDefinition>
-            <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Введення даних для побудови траєкторії" FontSize="12">
+        <GroupBox Grid.Row="0" Header="Введення даних адвекції" FontSize="12">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -57,14 +58,20 @@
                         Радіус півкола
                     </TextBox.ToolTip>
                 </TextBox>
+                <TextBox Text="400" Grid.Row="5" Grid.Column="0" Name="CalculationTimeTextBox">
+                    <TextBox.ToolTip>
+                        Час, протягом якого буде виконуватися побудова перетину Пуанкаре
+                    </TextBox.ToolTip>
+                </TextBox>
 
                 <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
                 <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
                 <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
+                <Label Grid.Row="5" Grid.Column="1" Content="Період побудови перетину"></Label>
 
-                <GroupBox Grid.RowSpan="5" Grid.Column="2" Header="Введення точок">
+                <GroupBox Grid.RowSpan="6" Grid.Column="2" Header="Введення точок">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -100,7 +107,14 @@
             </Grid>
         </GroupBox>
         <Grid Grid.Row="1">
-            <local:PersonalUIElement x:Name="uiElement"></local:PersonalUIElement>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <local:PersonalUIElement x:Name="uiElement" Grid.Row="0"></local:PersonalUIElement>
+            
+            <ProgressBar Grid.Row="1" Name="PoincareProgressBar"></ProgressBar>
         </Grid>
         <Grid Grid.Row="2" Name="StartStopGrid">
             <Grid.ColumnDefinitions>
@@ -117,7 +131,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Збереження та завантаження даних траєкторії" FontSize="20">
+        <GroupBox Grid.Row="3" Header="Збереження та завантаження даних адвекції" FontSize="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

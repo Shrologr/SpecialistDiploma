@@ -37,3 +37,5 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debu
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\ImageWindow.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\TrajectoryWindow.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\TrajectoryWindow.baml
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PoincareWindow.g.cs
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PoincareWindow.baml

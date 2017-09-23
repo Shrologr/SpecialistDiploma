@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfDiploma.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="414.291" Width="848.88"
+        Title="Диплом" Height="414.291" Width="848.88"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
@@ -43,8 +43,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Name="AdvectionCallButton" Content="Адвекція" Click="AdvectionCallButton_Click"></Button>
-            <Button Grid.Column="1" Content="Траекторія" Click="Button_Click"></Button>
-            <Button Grid.Column="2">
+            <Button Grid.Column="1" Content="Траекторія" Name="TrajectoryWindowButton" Click="TrajectoryWindowButton_Click"></Button>
+            <Button Grid.Column="2" Name="PoincareWindowButton" Click="PoincareWindowButton_Click">
                 <Button.Content>
                     <AccessText TextWrapping="Wrap" Text="Перетин Пуанкаре" TextAlignment="Center"></AccessText>
                 </Button.Content>

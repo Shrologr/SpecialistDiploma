@@ -21,25 +21,25 @@ namespace WpfDiploma
     /// <summary>
     /// Interaction logic for AdvectionWindow.xaml
     /// </summary>
-    public partial class TrajectoryWindow : Window
+    public partial class PoincareWindow : Window
     {
         bool isAddingActive;
-        bool isActive, isPaused;
         bool isReadable;
         public delegate void WindowCall();
-        public delegate void TrajectoryListCall(double x, double y, Color color);
+        public delegate void ProgressBarCall(double currentTime);
+        public delegate void PoincareListCall(double x, double y, Color color);
         Derives derives;
         List<CustomPoint> points;
-        List<CustomPoint> trajectoryPoints;
+        List<CustomPoint> poicarePoints;
         DrawState advectionState;
         Random pointRandom;
         CoordinateTransformer coordTransformer;
-        public TrajectoryWindow()
+        public PoincareWindow()
         {
             isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
-            trajectoryPoints = new List<CustomPoint>();
+            poicarePoints = new List<CustomPoint>();
             derives = new Derives();
             advectionState = new DrawState(derives, 0, 0, points);
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace WpfDiploma
 
             uiElement.CoordTransformer = coordTransformer;
             uiElement.Points = points;
-            uiElement.TrajectoryPoints = trajectoryPoints;
+            uiElement.PuankarePoints = poicarePoints;
 
             derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
 
@@ -55,7 +55,6 @@ namespace WpfDiploma
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
             isReadable = true;
-            isActive = false;
         }
 
         private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
@@ -128,62 +127,58 @@ namespace WpfDiploma
 
         private async void StartModeling()
         {
-            isActive = true;
+            StartPauseButton.IsEnabled = false;
             uiElement.InvalidateVisual();
+            poicarePoints.Clear();
             double timeStep;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text) || !double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep))
+            double calculationPeriod;
+            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text)
+                || !double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep)
+                || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod))
             {
                 return;
             }
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             rungeKut.TimeStep = timeStep;
             WindowCall caller = uiElement.InvalidateVisual;
-            WindowCall trajectoryRemoveCaller = () => { if (trajectoryPoints.Count > points.Count * 120) trajectoryPoints.RemoveRange(0, points.Count); };
-            TrajectoryListCall trajCaller = (x, y, color) => { trajectoryPoints.Add(new CustomPoint(new double[] { x, y }, color)); };
+            PoincareListCall poincareCaller = (x, y, color) => { poicarePoints.Add(new CustomPoint(new double[] { x, y }, color)); };
+            PoincareProgressBar.Minimum = 0;
+            PoincareProgressBar.Maximum = calculationPeriod;
+            ProgressBarCall progressBarCall = (double i) => { PoincareProgressBar.Value = i; };
+            List<CustomPoint> spareList = new List<CustomPoint>();
+            for (int i = 0; i < points.Count; i++)
+            {
+                spareList.Add(new CustomPoint(new double[] { points[i].Coordinates[0], points[i].Coordinates[1] }, points[i].BrushColor));
+            }
             await Task.Run(() =>
             {
-                for (int i = 1; isActive; i++)
+                for (int i = 1; rungeKut.CurrentTime < calculationPeriod; i++)
                 {
-                    while (isPaused)
-                    {
-                        System.Threading.Thread.Sleep(100);
-                    }
                     for (int j = 0; j < points.Count; j++)
                     {
-                        rungeKut.Runge_Kut(points[j], derives);
-                        if (i % 15 == 0)
-                        Dispatcher.Invoke(trajCaller, points[j].Coordinates[0], points[j].Coordinates[1], points[j].BrushColor);
+                        rungeKut.Runge_Kut(spareList[j], derives);
+                        if (derives.Period - rungeKut.CurrentTime % derives.Period < rungeKut.TimeStep && derives.Period - rungeKut.CurrentTime % derives.Period > 0)
+                            Dispatcher.Invoke(poincareCaller, spareList[j].Coordinates[0], spareList[j].Coordinates[1], spareList[j].BrushColor);
                     }
+                    if (derives.Period - rungeKut.CurrentTime % derives.Period < rungeKut.TimeStep)
+                        Dispatcher.Invoke(progressBarCall, rungeKut.CurrentTime);
                     rungeKut.RecalculateTime(i);
-                    Dispatcher.Invoke(caller);
-                    Dispatcher.Invoke(trajectoryRemoveCaller);
                     System.Threading.Thread.Sleep(1);
                 }
             });
-            points.Clear();
-            trajectoryPoints.Clear();
+            PoincareProgressBar.Value = 0;
+            StartPauseButton.IsEnabled = true;
             uiElement.InvalidateVisual();
         }
 
         private void StartPauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!isActive)
-            {
-                StartModeling();
-                if (isActive)
-                    ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://pause.ico");
-            }
-            else
-            {
-                isPaused = !isPaused;
-                ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico", "file:///D://pause.ico", isPaused);
-            }
+            StartModeling();
         }
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            isPaused = false;
-            isActive = false;
-            ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico");
+            poicarePoints.Clear();
+            uiElement.InvalidateVisual();
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)

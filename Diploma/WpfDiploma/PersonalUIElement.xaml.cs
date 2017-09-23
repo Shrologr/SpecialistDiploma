@@ -22,6 +22,7 @@ namespace WpfDiploma
     {
         public List<CustomPoint> Points { get; set; }
         public List<CustomPoint> TrajectoryPoints { get; set; }
+        public List<CustomPoint> PuankarePoints { get; set; }
         public CoordinateTransformer CoordTransformer { get; set; }
         public PersonalUIElement()
         {
@@ -29,6 +30,7 @@ namespace WpfDiploma
             Points = new List<CustomPoint>();
             TrajectoryPoints = new List<CustomPoint>();
             CoordTransformer = new CoordinateTransformer();
+            PuankarePoints = new List<CustomPoint>();
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -49,7 +51,11 @@ namespace WpfDiploma
             }
             for (int i = 0; i < Points.Count; i++)
             {
-                drawingContext.DrawEllipse(Points[i].PointBrush, new Pen(Points[i].PointBrush, 2.0), new Point(CoordTransformer.TransformXtoPlane(Points[i].Coordinates[0]), CoordTransformer.TransformYtoPlane(Points[i].Coordinates[1])), 1.5, 1.5);
+                drawingContext.DrawEllipse(Points[i].PointBrush, new Pen(Points[i].PointBrush, 2.0), new Point(CoordTransformer.TransformXtoPlane(Points[i].Coordinates[0]), CoordTransformer.TransformYtoPlane(Points[i].Coordinates[1])), 0.8, 0.8);
+            }
+            for (int i = 0; i < PuankarePoints.Count; i++)
+            {
+                drawingContext.DrawEllipse(PuankarePoints[i].PointBrush, new Pen(PuankarePoints[i].PointBrush, 2.0), new Point(CoordTransformer.TransformXtoPlane(PuankarePoints[i].Coordinates[0]), CoordTransformer.TransformYtoPlane(PuankarePoints[i].Coordinates[1])), 0.8, 0.8);
             }
             for (int j = 0; j < TrajectoryPoints.Count - Points.Count; j++)
             {
