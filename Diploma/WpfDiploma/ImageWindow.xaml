@@ -1,0 +1,9 @@
+﻿<Window x:Class="WpfDiploma.ImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStartupLocation="CenterScreen"
+        Title="Зображення" Height="300" Width="300">
+    <Grid>
+        <Image Name="WindowImage"></Image>
+    </Grid>
+</Window>

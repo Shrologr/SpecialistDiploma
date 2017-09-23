@@ -10,8 +10,10 @@ namespace WpfDiploma
     [Serializable]
     public class Derives
     {
-        //Speed on the half circle, line and the radius
-        public double V, U, A, Period;
+        public double V;
+        public double U; 
+        public double A;
+        public double Period;
         public const double Pi = 3.14159265358979323846;
         public Derives()
         {
@@ -35,6 +37,14 @@ namespace WpfDiploma
             }
             else
                 return false;
+        }
+
+        public void SetData(double straightSpeed, double rotatingSpeed, double radius, double workPeriod)
+        {
+            V = straightSpeed / radius;
+            U = rotatingSpeed / radius;
+            A = 1;
+            Period = workPeriod;
         }
 
         public Derives(double v, double u, double a, double period)

@@ -12,7 +12,6 @@ namespace WpfDiploma
     public class DrawState
     {
         public Derives DeriveData;
-        public int TimeIndex;
         public double Dt;
         public List<CustomPoint> Points;
         public DrawState()
@@ -22,7 +21,6 @@ namespace WpfDiploma
         public DrawState(Derives derives, int timeIndex, double dt, List<CustomPoint> points)
         {
             DeriveData = derives;
-            TimeIndex = timeIndex;
             Dt = dt;
             Points = points;
         }

@@ -228,7 +228,6 @@ namespace Diploma
                 PeriodTextBox.Text = drawState.DeriveData.Period.ToString();
                 TimeStepTextBox.Text = drawState.Dt.ToString();
                 DrawPlane.Refresh();
-
             }
         }
     }

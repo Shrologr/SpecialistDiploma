@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -148,32 +151,98 @@ namespace WpfDiploma
             if (!isActive)
             {
                 StartModeling();
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri("file:///D://pause.ico", UriKind.Absolute);
-                bi3.EndInit();
-                StartPauseImage.Source = bi3;
+                if (isActive)
+                    ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://pause.ico");
             }
             else 
             {
                 isPaused = !isPaused;
-                BitmapImage bi3 = new BitmapImage();
-                bi3.BeginInit();
-                bi3.UriSource = new Uri((isPaused) ? "file:///D://start.ico" : "file:///D://pause.ico", UriKind.Absolute);
-                bi3.EndInit();
-                StartPauseImage.Source = bi3;
+                ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico", "file:///D://pause.ico", isPaused);
             }
         }
-
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             isPaused = false;
             isActive = false;
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri("file:///D://start.ico", UriKind.Absolute);
-            bi3.EndInit();
-            StartPauseImage.Source = bi3;
+            ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico");
+        }
+
+        private void SaveDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Simulation data (*.simuldata)|*.simuldata";
+            bool? isSaved = saveFileDialog.ShowDialog();
+            if (isSaved != null && isSaved == true)
+            {
+                double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out advectionState.Dt);
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(advectionState.GetType());
+                MemoryStream ms = new MemoryStream();
+                serializer.WriteObject(ms, advectionState);
+                string result = Encoding.Default.GetString(ms.ToArray());
+                File.WriteAllText(saveFileDialog.FileName, result);
+            }
+        }
+
+        private void LoadDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Simulation data (*.simuldata)|*.simuldata";
+            bool? isOpened = dialog.ShowDialog();
+            if (isOpened != null && isOpened == true)
+            {
+                try
+                {
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(advectionState.GetType());
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(File.ReadAllText(dialog.FileName)));
+                    advectionState = serializer.ReadObject(ms) as DrawState;
+                    ms.Close();
+                    StraightSpeedTextBox.Text = advectionState.DeriveData.V.ToString(CultureInfo.InvariantCulture);
+                    CircularSpeedTextBox.Text = advectionState.DeriveData.U.ToString(CultureInfo.InvariantCulture);
+                    CircleRadiusTextBox.Text = advectionState.DeriveData.A.ToString(CultureInfo.InvariantCulture);
+                    RotationPeriodTextBox.Text = advectionState.DeriveData.Period.ToString(CultureInfo.InvariantCulture);
+                    TimeStepTextBox.Text = advectionState.Dt.ToString(CultureInfo.InvariantCulture);
+                    points = uiElement.Points = advectionState.Points;
+                    uiElement.InvalidateVisual();
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("Неправильний формат даних", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void SavePictureButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Simulation image (*.png)|*.png";
+            bool? isSaved = saveFileDialog.ShowDialog();
+            if (isSaved != null && isSaved == true)
+            {
+                ImageSaver.SaveUsingEncoder(uiElement, saveFileDialog.FileName, new PngBitmapEncoder());
+            }
+        }
+
+        private void LoadPictureButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Simulation image (*.png)|*.png";
+            bool? isOpened = dialog.ShowDialog();
+            if (isOpened != null && isOpened == true)
+            {
+                try
+                {
+                    ImageWindow imageWindow = new ImageWindow();
+                    Image someImage = imageWindow.GetImage();
+                    ImageLoader.LoadAndSetImage(someImage, "file:///" + dialog.FileName);
+                    imageWindow.Height = uiElement.ActualHeight;
+                    imageWindow.Width = uiElement.ActualWidth;
+                    imageWindow.Show();
+                }
+                catch 
+                {
+                    System.Windows.MessageBox.Show("Неправильний формат файла", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);                    
+                }
+            }
         }
     }
 }

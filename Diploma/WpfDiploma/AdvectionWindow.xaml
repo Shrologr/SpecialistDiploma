@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:WpfDiploma"
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
+        WindowStartupLocation="CenterScreen"
         Title="Адвекція" Height="688.06" Width="525.374">
     <Grid>
         <Grid.RowDefinitions>
@@ -98,9 +99,9 @@
                 </GroupBox>
             </Grid>
         </GroupBox>
-
-        <local:PersonalUIElement x:Name="uiElement" Grid.Row="1"></local:PersonalUIElement>
-        
+        <Grid Grid.Row="1">
+            <local:PersonalUIElement x:Name="uiElement"></local:PersonalUIElement>
+        </Grid>
         <Grid Grid.Row="2" Name="StartStopGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -113,19 +114,19 @@
                 <Image Source="D:\\Stop.ico"></Image>
             </Button>
         </Grid>
-        
-        
-        
+
+
+
         <GroupBox Grid.Row="3" Header="Збереження та завантаження даних адвекції" FontSize="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Name="SaveDataButton" Grid.Column="0">
+                <Button Name="SaveDataButton" Grid.Column="0" Click="SaveDataButton_Click">
                     <Image Source="D:\\Save.ico"></Image>
                 </Button>
-                <Button Name="LoadDataButton" Grid.Column="1">
+                <Button Name="LoadDataButton" Grid.Column="1" Click="LoadDataButton_Click">
                     <Image Source="D:\\Load.png"></Image>
                 </Button>
             </Grid>
@@ -137,10 +138,10 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Name="SavePictureButton" Grid.Column="0">
+                <Button Name="SavePictureButton" Grid.Column="0" Click="SavePictureButton_Click">
                     <Image Source="D:\\Save.ico"></Image>
                 </Button>
-                <Button Name="LoadPictureButton" Grid.Column="1">
+                <Button Name="LoadPictureButton" Grid.Column="1" Click="LoadPictureButton_Click">
                     <Image Source="D:\\Load.png"></Image>
                 </Button>
             </Grid>

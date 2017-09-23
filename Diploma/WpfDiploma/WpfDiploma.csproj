@@ -62,11 +62,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ImageLoader.cs" />
+    <Compile Include="ImageSaver.cs" />
+    <Compile Include="ImageWindow.xaml.cs">
+      <DependentUpon>ImageWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonalUIElement.xaml.cs">
       <DependentUpon>PersonalUIElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="RungeKutClass.cs" />
     <Page Include="AdvectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
