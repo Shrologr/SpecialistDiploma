@@ -122,10 +122,10 @@ namespace WpfDiploma
         {
             if (isReadable)
             {
-                if (derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text)) 
+                if (derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text))
                 {
                     uiElement.InvalidateVisual();
-                    BuildGrid();                    
+                    BuildGrid();
                 }
             }
         }
@@ -383,13 +383,68 @@ namespace WpfDiploma
                 Grid.SetRowSpan(GraphHost, 5);
                 Grid.SetColumnSpan(GraphHost, 2);
             }
-            else 
+            else
             {
                 isFullScreen = !isFullScreen;
                 Grid.SetRow(GraphHost, 1);
                 Grid.SetRowSpan(GraphHost, 1);
                 Grid.SetColumnSpan(GraphHost, 1);
                 Grid.SetColumn(GraphHost, 1);
+            }
+        }
+
+        private void SaveGraphDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Simulation graphs (*.simulgraphs)|*.simulgraphs";
+            bool? isSaved = saveFileDialog.ShowDialog();
+            if (isSaved != null && isSaved == true)
+            {
+                PointPairList[] data = new PointPairList[] {densityDistributionMeanValueList,
+            densityDistributionRootMeanSquareValueList,
+            mixtureEntropyValueList,
+            maxMixtureEntropyValueList,
+            segregationIntensityValueList};
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(data.GetType());
+                MemoryStream ms = new MemoryStream();
+                serializer.WriteObject(ms, data);
+                string result = Encoding.Default.GetString(ms.ToArray());
+                File.WriteAllText(saveFileDialog.FileName, result);
+            }
+        }
+
+        private void LoadGraphDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "Simulation graphs (*.simulgraphs)|*.simulgraphs";
+            bool? isOpened = dialog.ShowDialog();
+            if (isOpened != null && isOpened == true)
+            {
+                try
+                {
+                    PointPairList[] data = new PointPairList[] { };
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(data.GetType());
+                    MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(File.ReadAllText(dialog.FileName)));
+                    data = serializer.ReadObject(ms) as PointPairList[];
+                    ms.Close();
+                    densityDistributionMeanValueList.Clear();
+                    densityDistributionRootMeanSquareValueList.Clear();
+                    mixtureEntropyValueList.Clear();
+                    maxMixtureEntropyValueList.Clear();
+                    segregationIntensityValueList.Clear();
+
+                    densityDistributionMeanValueList.AddRange(data[0]);
+                    densityDistributionRootMeanSquareValueList.AddRange(data[1]);
+                    mixtureEntropyValueList.AddRange(data[2]);
+                    maxMixtureEntropyValueList.AddRange(data[3]);
+                    segregationIntensityValueList.AddRange(data[4]);
+
+                    RedrawGraph();
+                }
+                catch
+                {
+                    System.Windows.MessageBox.Show("Неправильний формат даних", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
