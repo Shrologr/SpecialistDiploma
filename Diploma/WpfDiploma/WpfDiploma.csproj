@@ -64,19 +64,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ImageLoader.cs" />
-    <Compile Include="ImageSaver.cs" />
     <Compile Include="ImageWindow.xaml.cs">
       <DependentUpon>ImageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonalUIElement.xaml.cs">
-      <DependentUpon>PersonalUIElement.xaml</DependentUpon>
+    <Compile Include="LiapunovWindow.xaml.cs">
+      <DependentUpon>LiapunovWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoincareWindow.xaml.cs">
       <DependentUpon>PoincareWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PointState.cs" />
-    <Compile Include="RungeKutClass.cs" />
     <Compile Include="StatisticsWindow.xaml.cs">
       <DependentUpon>StatisticsWindow.xaml</DependentUpon>
     </Compile>
@@ -91,6 +87,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LiapunovWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,19 +102,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CoordinateTransformer.cs" />
-    <Compile Include="CustomPoint.cs" />
-    <Compile Include="Derives.cs" />
-    <Compile Include="DrawState.cs" />
-    <Compile Include="GridStatistics.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="PersonalUIElement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="PoincareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +145,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiplomaClasses\DiplomaClasses.csproj">
+      <Project>{139b3461-2ec2-4073-bc66-9c0dac189471}</Project>
+      <Name>DiplomaClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PersonalUIElement\PersonalUIElement.csproj">
+      <Project>{47a31e5d-6e49-4b09-9aa0-409213ba9e41}</Project>
+      <Name>PersonalUIElement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

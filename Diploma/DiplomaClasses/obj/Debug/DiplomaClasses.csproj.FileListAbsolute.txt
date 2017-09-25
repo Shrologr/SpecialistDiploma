@@ -1,0 +1,5 @@
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\DiplomaClasses\obj\Debug\DiplomaClasses.csprojResolveAssemblyReference.cache
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\DiplomaClasses\bin\Debug\DiplomaClasses.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\DiplomaClasses\bin\Debug\DiplomaClasses.pdb
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\DiplomaClasses\obj\Debug\DiplomaClasses.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\DiplomaClasses\obj\Debug\DiplomaClasses.pdb

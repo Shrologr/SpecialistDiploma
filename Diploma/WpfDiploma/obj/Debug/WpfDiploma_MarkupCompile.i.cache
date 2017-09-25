@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\App.xaml
-7-1218096460
+7-101309122
 
-24903573495
-18-1858085553
-AdvectionWindow.xaml;ImageWindow.xaml;MainWindow.xaml;PersonalUIElement.xaml;PoincareWindow.xaml;StatisticsWindow.xaml;TrajectoryWindow.xaml;
+15120695593
+2014443336
+AdvectionWindow.xaml;ImageWindow.xaml;LiapunovWindow.xaml;MainWindow.xaml;PoincareWindow.xaml;StatisticsWindow.xaml;TrajectoryWindow.xaml;
 
-True
+False
 

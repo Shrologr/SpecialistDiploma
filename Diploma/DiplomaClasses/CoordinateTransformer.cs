@@ -17,13 +17,13 @@ namespace WpfDiploma
 {
     public class CoordinateTransformer
     {
-        PersonalUIElement drawPlane;
+        UserControl drawPlane;
         Derives derives;
         public CoordinateTransformer()
         {
             
         }
-        public CoordinateTransformer(PersonalUIElement drawPlane, Derives derives)
+        public CoordinateTransformer(UserControl drawPlane, Derives derives)
         {
             this.drawPlane = drawPlane;
             this.derives = derives;

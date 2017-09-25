@@ -28,8 +28,6 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debu
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\AdvectionWindow.baml
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\AdvectionWindow.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\Xceed.Wpf.Toolkit.dll
-C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PersonalUIElement.baml
-C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PersonalUIElement.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma_MarkupCompile.lref
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma.csprojResolveAssemblyReference.cache
@@ -41,3 +39,9 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debu
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\PoincareWindow.baml
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\StatisticsWindow.g.cs
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\StatisticsWindow.baml
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\LiapunovWindow.baml
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\LiapunovWindow.g.cs
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\DiplomaClasses.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\PersonalUIElement.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\DiplomaClasses.pdb
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\PersonalUIElement.pdb

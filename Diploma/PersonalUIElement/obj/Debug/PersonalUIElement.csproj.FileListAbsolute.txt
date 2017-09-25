@@ -1,0 +1,13 @@
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\bin\Debug\PersonalUIElement.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\bin\Debug\PersonalUIElement.pdb
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\bin\Debug\DiplomaClasses.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\bin\Debug\DiplomaClasses.pdb
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.csprojResolveAssemblyReference.cache
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.baml
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.g.cs
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement_MarkupCompile.cache
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.g.resources
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.Properties.Resources.resources
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.csproj.GenerateResource.Cache
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.dll
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\PersonalUIElement\obj\Debug\PersonalUIElement.pdb

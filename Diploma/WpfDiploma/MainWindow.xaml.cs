@@ -57,5 +57,12 @@ namespace WpfDiploma
             new StatisticsWindow().ShowDialog();
             Show();
         }
+
+        private void LiapunovCallButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            new LiapunovWindow().ShowDialog();
+            Show();
+        }
     }
 }

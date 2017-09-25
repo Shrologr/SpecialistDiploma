@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Drawing;
 using ZedGraph;
+using WpfDiploma;
 
 namespace WpfDiploma
 {
