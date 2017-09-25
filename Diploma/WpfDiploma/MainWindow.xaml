@@ -54,7 +54,7 @@
                     <AccessText TextWrapping="Wrap" Text="Найбільший показник Ляпунова" TextAlignment="Center"></AccessText>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="4" Content="Статистика"></Button>
+            <Button Grid.Column="4" Content="Статистика" Name="StatisticsWindowButton" Click="StatisticsWindowButton_Click"></Button>
             <Button Name="ExitButton" Grid.Column="5" Content="Вихід" Foreground="Red" Click="ExitButton_Click"></Button>
         </Grid>
     </Grid>

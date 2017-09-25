@@ -24,6 +24,7 @@ namespace WpfDiploma
         public List<CustomPoint> TrajectoryPoints { get; set; }
         public List<CustomPoint> PuankarePoints { get; set; }
         public CoordinateTransformer CoordTransformer { get; set; }
+        public GridStatistics GridStats { get; set; }
         public PersonalUIElement()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace WpfDiploma
             TrajectoryPoints = new List<CustomPoint>();
             CoordTransformer = new CoordinateTransformer();
             PuankarePoints = new List<CustomPoint>();
+            GridStats = new GridStatistics();
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -61,6 +63,23 @@ namespace WpfDiploma
             {
                 drawingContext.DrawLine(new Pen(TrajectoryPoints[j].PointBrush, 1.5), new Point(CoordTransformer.TransformXtoPlane(TrajectoryPoints[j].Coordinates[0]), CoordTransformer.TransformYtoPlane(TrajectoryPoints[j].Coordinates[1])), new Point(CoordTransformer.TransformXtoPlane(TrajectoryPoints[j + Points.Count].Coordinates[0]), CoordTransformer.TransformYtoPlane(TrajectoryPoints[j + Points.Count].Coordinates[1])));
             }
+            //if (GridStats.cells != null)
+            //{
+            //    var pen = new Pen(new SolidColorBrush(Colors.Black), 0.5);
+            //    float currentCellWidth = (float)CoordTransformer.TransformXtoPlane(GridStats.cellWidth) - CoordTransformer.TransformXtoPlane(0);
+            //    float currentCellHeight = (float)CoordTransformer.TransformYtoPlane(0) - CoordTransformer.TransformYtoPlane(GridStats.cellWidth);
+            //    for (int i = 0; i < GridStats.cells.Count; i++)
+            //    {
+            //        for (int j = 0; j < GridStats.cells[i].Count; j++)
+            //        {
+            //            Point start = new Point(CoordTransformer.TransformXtoPlane(-1 + i * GridStats.cellWidth), CoordTransformer.TransformYtoPlane((j + 1) * GridStats.cellWidth));
+            //            drawingContext.DrawLine(pen, start, new Point(start.X + currentCellWidth, start.Y));
+            //            drawingContext.DrawLine(pen, new Point(start.X + currentCellWidth, start.Y), new Point(start.X + currentCellWidth, start.Y + currentCellHeight));
+            //            drawingContext.DrawLine(pen, new Point(start.X + currentCellWidth, start.Y + currentCellHeight), new Point(start.X, start.Y + currentCellHeight));
+            //            drawingContext.DrawLine(pen, new Point(start.X, start.Y + currentCellHeight), new Point(start.X, start.Y + currentCellHeight));
+            //        }
+            //    }
+            //}
             base.OnRender(drawingContext);
         }
     }

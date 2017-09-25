@@ -153,7 +153,7 @@ namespace Diploma
                         gridStatistics.cells[xindex][yindex] += 1.0F / gridStatistics.totalCellCount;
                     }
                     rungeKut.RecalculateTime(i);                    
-                    if (rungeKut.CurrentTime % calculationPeriod < 0.001)
+                    if (rungeKut.CurrentTime % calculationPeriod < 0.0001)
                     {
                         double rootMeanSquareSum = 0;
                         double meanSum = 0;

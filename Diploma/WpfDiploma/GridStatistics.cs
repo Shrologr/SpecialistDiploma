@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace WpfDiploma
 {
+    public struct StatisticsData 
+    {
+        public double MeanSum { get; set; }
+        public double RootMeanSquareSum { get; set; }
+        public double Entropy { get; set; }
+        public double Intensity { get; set; }
+        public double MaxEntropy { get; set; }
+    }
     public class GridStatistics
     {
         public List<List<float>> cells;
@@ -36,32 +44,34 @@ namespace WpfDiploma
             }
         }
 
-        public void CalculateValues(ref double meanSum, ref double rootMeanSquareSum, ref double entropy, ref double maxEntropy, ref double intensity)
+        public StatisticsData CalculateValues()
         {
+            StatisticsData data = new StatisticsData();
             for (int j = 0; j < cells.Count; j++)
             {
                 for (int k = 0; k < cells[j].Count; k++)
                 {
-                    meanSum += cells[j][k];
-                    rootMeanSquareSum += Math.Pow(cells[j][k], 2);
-                    entropy += cells[j][k] * ((cells[j][k] == 0) ? 1 : Math.Log(cells[j][k]));
+                    data.MeanSum += cells[j][k];
+                    data.RootMeanSquareSum += Math.Pow(cells[j][k], 2);
+                    data.Entropy += cells[j][k] * ((cells[j][k] == 0) ? 1 : Math.Log(cells[j][k]));
                 }
             }
-            rootMeanSquareSum /= totalCellCount;
-            entropy /= -totalCellCount;
-            meanSum /= totalCellCount;
+            data.RootMeanSquareSum /= totalCellCount;
+            data.Entropy /= -totalCellCount;
+            data.MeanSum /= totalCellCount;
 
             for (int j = 0; j < cells.Count; j++)
             {
                 for (int k = 0; k < cells[j].Count; k++)
                 {
-                    intensity += Math.Pow(cells[j][k] - meanSum, 2);
+                    data.Intensity += Math.Pow(cells[j][k] - data.MeanSum, 2);
                 }
             }
-            intensity /= totalCellCount;
-            intensity /= meanSum * (1 - meanSum);
-            maxEntropy = -meanSum * Math.Log(meanSum);
-            meanSum = Math.Pow(meanSum, 2);
+            data.Intensity /= totalCellCount;
+            data.Intensity /= data.MeanSum * (1 - data.MeanSum);
+            data.MaxEntropy = -data.MeanSum * Math.Log(data.MeanSum);
+            data.MeanSum = Math.Pow(data.MeanSum, 2);
+            return data;
         }
 
         public void ClearGrid()
