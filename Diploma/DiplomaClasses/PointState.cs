@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace WpfDiploma
 {
+    [DataContract]
     public class PointState
     {
-        public double Time { get; set; }
-        public double XCoordinate { get; set; }
-        public double YCoordinate { get; set; }
+        [DataMember]
+        public double[] Coordinates { get; set; }
     }
 }
