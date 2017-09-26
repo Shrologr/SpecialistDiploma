@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +40,24 @@ namespace PersonalUIElement
         protected override void OnRender(DrawingContext drawingContext)
         {
             Pen axisPen = new Pen(new SolidColorBrush(Colors.Black), 2.5);
+            Brush textBrush = new SolidColorBrush(Colors.Black);
+            
             drawingContext.DrawRectangle(new SolidColorBrush(Colors.White), new Pen(new SolidColorBrush(Colors.White), 2.5), new Rect(0, 0, ActualWidth, ActualHeight));
             drawingContext.DrawLine(axisPen, new Point(ActualWidth / 2, ActualHeight * 0.9F), new Point(ActualWidth / 2, 0));
             drawingContext.DrawLine(axisPen, new Point(0, ActualHeight * 0.9F), new Point(ActualWidth, ActualHeight * 0.9F));
+
+            FormattedText text = new FormattedText("-1", CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Courier New"), 16, textBrush);
+            drawingContext.DrawText(text, new Point(ActualWidth * 0.1F, ActualHeight * 0.91F));
+            text = new FormattedText("1", CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Courier New"), 16, textBrush);
+            drawingContext.DrawText(text, new Point(ActualWidth * 0.9F - 1 * 11.7F, ActualHeight * 0.91F));
+            drawingContext.DrawText(text, new Point(ActualWidth / 1.96, ActualHeight * 0.02F));
+            text = new FormattedText("0", CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Courier New"), 16, textBrush);
+            drawingContext.DrawText(text, new Point(ActualWidth / 2, ActualHeight * 0.91F));
+            text = new FormattedText("X", CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Courier New"), 16, textBrush);
+            drawingContext.DrawText(text, new Point(ActualWidth * 0.95F, ActualHeight * 0.9F));
+            text = new FormattedText("Y", CultureInfo.InvariantCulture, System.Windows.FlowDirection.LeftToRight, new Typeface("Courier New"), 16, textBrush);
+            drawingContext.DrawText(text, new Point(ActualWidth / 2.2, 0));
+
             double x0 = ActualWidth / 2 + ActualWidth * 0.4 * Math.Cos(0);
             double y0 = ActualHeight * 0.9 - ActualHeight * 0.8 * Math.Sin(0);
             for (double t = Math.PI / 64; t <= Math.PI; t += Math.PI / 64)

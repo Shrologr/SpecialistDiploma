@@ -43,7 +43,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Name="AdvectionCallButton" Content="Адвекція" Click="AdvectionCallButton_Click"></Button>
-            <Button Grid.Column="1" Content="Траекторія" Name="TrajectoryWindowButton" Click="TrajectoryWindowButton_Click"></Button>
+            <Button Grid.Column="1" Content="Траєкторія" Name="TrajectoryWindowButton" Click="TrajectoryWindowButton_Click"></Button>
             <Button Grid.Column="2" Name="PoincareWindowButton" Click="PoincareWindowButton_Click">
                 <Button.Content>
                     <AccessText TextWrapping="Wrap" Text="Перетин Пуанкаре" TextAlignment="Center"></AccessText>

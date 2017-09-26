@@ -8,7 +8,12 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Перетин Пуанкаре" Height="688.06" Width="535.374">
+        Title="Перетин Пуанкаре" Height="688.06" Width="585.374">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.1*"></RowDefinition>
@@ -71,7 +76,7 @@
                 <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
                 <Label Grid.Row="5" Grid.Column="1" Content="Період побудови перетину"></Label>
 
-                <GroupBox Grid.RowSpan="6" Grid.Column="2" Header="Введення точок">
+                <GroupBox Grid.RowSpan="6" Grid.Column="2" Header="Введення маркерів">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
@@ -99,7 +104,7 @@
                         <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Координата Y"></Label>
 
                         <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
-                        <Button Grid.Row="4" Name="NewPointButton" Grid.ColumnSpan="2" Content="Додати нову точку" Click="NewPointButton_Click"></Button>
+                        <Button Grid.Row="4" Name="NewPointButton" Grid.ColumnSpan="2" Content="Додати новий маркер" Click="NewPointButton_Click"></Button>
 
                     </Grid>
 
@@ -131,7 +136,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Збереження та завантаження даних" FontSize="20">
+        <GroupBox Grid.Row="3" Header="Дані для побудови перетину" FontSize="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -146,7 +151,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Header="Збереження та завантаження зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Header="Зображення" FontSize="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

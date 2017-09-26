@@ -10,6 +10,11 @@
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
         Title="Статистика" Height="688.06" Width="900">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"></RowDefinition>
@@ -135,7 +140,7 @@
                 <Image Source="D:\\Stop.ico"></Image>
             </Button>
         </Grid>
-        <GroupBox Grid.Row="3" Header="Збереження та завантаження даних маркерів" FontSize="17">
+        <GroupBox Grid.Row="3" Header="Дані маркерів" FontSize="17">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -150,7 +155,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="3" Grid.Column="1" Header="Збереження та завантаження графіка" FontSize="17">
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Графік" FontSize="17">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -165,7 +170,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Grid.ColumnSpan="2" Header="Збереження та завантаження зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Grid.ColumnSpan="2" Header="Зображення" FontSize="20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
