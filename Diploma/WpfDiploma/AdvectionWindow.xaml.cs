@@ -44,7 +44,7 @@ namespace WpfDiploma
             coordTransformer = new CoordinateTransformer(uiElement, derives);
             uiElement.CoordTransformer = coordTransformer;
             uiElement.Points = points;
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
@@ -56,7 +56,7 @@ namespace WpfDiploma
         {
             if (isReadable)
             {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
                 uiElement.InvalidateVisual();
             }
         }
@@ -118,14 +118,12 @@ namespace WpfDiploma
         {
             isActive = true;
             uiElement.InvalidateVisual();
-            double timeStep;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text) || !double.TryParse(TimeStepTextBox.Text,NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep)) 
+            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)) 
             {
                 return;
             }
             
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
-            rungeKut.TimeStep = timeStep;
             PictureBoxCall caller = uiElement.InvalidateVisual;
             await Task.Run(() =>
             {
@@ -152,19 +150,20 @@ namespace WpfDiploma
             {
                 StartModeling();
                 if (isActive)
-                    ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://pause.ico");
+                    StartPauseImage.Source = FindResource("PauseImageSource") as BitmapImage;
             }
             else 
             {
                 isPaused = !isPaused;
-                ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico", "file:///D://pause.ico", isPaused);
+                StartPauseImage.Source = FindResource((isPaused) ? "StartImageSource" : "PauseImageSource") as BitmapImage;
             }
         }
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             isPaused = false;
             isActive = false;
-            ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico");
+            var hui = FindResource("StartImageSource") as BitmapImage;
+            StartPauseImage.Source = hui;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)
@@ -174,7 +173,6 @@ namespace WpfDiploma
             bool? isSaved = saveFileDialog.ShowDialog();
             if (isSaved != null && isSaved == true)
             {
-                double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out advectionState.Dt);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(advectionState.GetType());
                 MemoryStream ms = new MemoryStream();
                 serializer.WriteObject(ms, advectionState);
@@ -198,9 +196,7 @@ namespace WpfDiploma
                     ms.Close();
                     StraightSpeedTextBox.Text = advectionState.DeriveData.V.ToString(CultureInfo.InvariantCulture);
                     CircularSpeedTextBox.Text = advectionState.DeriveData.U.ToString(CultureInfo.InvariantCulture);
-                    CircleRadiusTextBox.Text = advectionState.DeriveData.A.ToString(CultureInfo.InvariantCulture);
                     RotationPeriodTextBox.Text = advectionState.DeriveData.Period.ToString(CultureInfo.InvariantCulture);
-                    TimeStepTextBox.Text = advectionState.Dt.ToString(CultureInfo.InvariantCulture);
                     points = uiElement.Points = advectionState.Points;
                     uiElement.InvalidateVisual();
                 }
@@ -243,6 +239,11 @@ namespace WpfDiploma
                     System.Windows.MessageBox.Show("Неправильний формат файла", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);                    
                 }
             }
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

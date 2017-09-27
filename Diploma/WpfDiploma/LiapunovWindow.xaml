@@ -23,13 +23,14 @@
             <RowDefinition Height="1.0*"></RowDefinition>
             <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition Height="0.4*"></RowDefinition>
+            <RowDefinition Height="0.4*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <GroupBox Name="Aaaaaagroupbox" Grid.Row="0" Grid.ColumnSpan="3" Header="Введення даних для знаходження найбільшого показника Ляпунова" FontSize="12">
+        <GroupBox Name="Groupbox" Grid.Row="0" Grid.ColumnSpan="3" Header="Введення даних для знаходження найбільшого показника Ляпунова" FontSize="12">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
@@ -204,5 +205,6 @@
                 </Button>
             </Grid>
         </GroupBox>
+        <Button Grid.Row="5" Grid.ColumnSpan="3" Name="ExitButton" Content="Вихід" Foreground="Red" FontSize="26" Click="ExitButton_Click"></Button>
     </Grid>
 </Window>

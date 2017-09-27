@@ -19,15 +19,14 @@ namespace WpfDiploma
         {
             V = 0;
             U = 0;
-            A = 0;
+            A = 1;
             Period = 0.1;
         }
 
-        public bool SetData(string straightSpeed, string rotatingSpeed, string radius, string workPeriod)
+        public bool SetData(string straightSpeed, string rotatingSpeed, string workPeriod)
         {
             if (double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out V) &&
                 double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out U) &&
-                double.TryParse(radius, NumberStyles.Float, CultureInfo.InvariantCulture, out A) &&
                 double.TryParse(workPeriod, NumberStyles.Float, CultureInfo.InvariantCulture, out Period))
             {
                 V /= A;
@@ -39,10 +38,10 @@ namespace WpfDiploma
                 return false;
         }
 
-        public void SetData(double straightSpeed, double rotatingSpeed, double radius, double workPeriod)
+        public void SetData(double straightSpeed, double rotatingSpeed, double workPeriod)
         {
-            V = straightSpeed / radius;
-            U = rotatingSpeed / radius;
+            V = straightSpeed / A;
+            U = rotatingSpeed / A;
             A = 1;
             Period = workPeriod;
         }

@@ -8,7 +8,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Адвекція" Height="688.06" Width="550.374">
+        Title="Адвекція" Height="688" Width="550.374">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -21,13 +21,11 @@
             <RowDefinition Height="0.6*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
         </Grid.RowDefinitions>
-
-        <GroupBox Grid.Row="0" Header="Введення даних адвекції" FontSize="12">
+        <GroupBox Grid.Row="0" Header="Введення даних адвекції">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -52,28 +50,14 @@
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.01" Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
-                    <TextBox.ToolTip>
-                        Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="1" Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
-                    <TextBox.ToolTip>
-                        Радіус півкола
-                    </TextBox.ToolTip>
-                </TextBox>
 
                 <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
-                <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
-                <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
 
-                <GroupBox Grid.RowSpan="5" Grid.Column="2" Header="Введення маркерів">
+                <GroupBox Grid.RowSpan="3" Grid.Column="2" Header="Введення маркерів">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -83,21 +67,19 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Slider Grid.Row="1" Name="PointNumberSlider" Maximum="100" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True">
+                        <Slider Grid.Row="0" Name="PointNumberSlider" Maximum="100" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True">
 
                         </Slider>
-                        <Slider Grid.Row="3" Name="PointSizeSlider" Maximum="100" Minimum="0" TickFrequency="1" IsSnapToTickEnabled="True">
+                        <Slider Grid.Row="1" Name="PointSizeSlider" Maximum="100" Minimum="0" TickFrequency="1" IsSnapToTickEnabled="True">
 
                         </Slider>
 
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
+                        <Label HorizontalAlignment="Center" ToolTip="Кількість маркерів" Grid.Row="0" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
+                        <Label HorizontalAlignment="Center" ToolTip="Розмір 'плями'" Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
 
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Кількість маркерів"></Label>
-                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Розмір 'плями'"></Label>
 
-                        <xctk:ColorPicker Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
-                        <Label Grid.Row="4" Grid.ColumnSpan="2" Content="Колір маркерів"></Label>
+                        <xctk:ColorPicker Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Колір маркерів"></Label>
 
                     </Grid>
 
@@ -122,7 +104,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Дані адвекції" FontSize="20">
+        <GroupBox Grid.Row="3" Header="Адвекція" FontSize="14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -137,7 +119,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Header="Зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Header="Зображення" FontSize="14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -151,5 +133,6 @@
                 </Button>
             </Grid>
         </GroupBox>
+        <Button Grid.Row="5" Name="ExitButton" Content="Вихід" Foreground="Red" FontSize="26" Click="ExitButton_Click"></Button>
     </Grid>
 </Window>

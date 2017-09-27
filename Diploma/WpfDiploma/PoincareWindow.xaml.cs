@@ -49,7 +49,7 @@ namespace WpfDiploma
             uiElement.Points = points;
             uiElement.PuankarePoints = poicarePoints;
 
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
 
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
@@ -61,7 +61,7 @@ namespace WpfDiploma
         {
             if (isReadable)
             {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
                 uiElement.InvalidateVisual();
             }
         }
@@ -130,16 +130,13 @@ namespace WpfDiploma
             StartPauseButton.IsEnabled = false;
             uiElement.InvalidateVisual();
             poicarePoints.Clear();
-            double timeStep;
             double calculationPeriod;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text)
-                || !double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep)
+            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)
                 || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod))
             {
                 return;
             }
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
-            rungeKut.TimeStep = timeStep;
             WindowCall caller = uiElement.InvalidateVisual;
             PoincareListCall poincareCaller = (x, y, color) => { poicarePoints.Add(new CustomPoint(new double[] { x, y }, color)); };
             PoincareProgressBar.Minimum = 0;
@@ -188,7 +185,6 @@ namespace WpfDiploma
             bool? isSaved = saveFileDialog.ShowDialog();
             if (isSaved != null && isSaved == true)
             {
-                double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out advectionState.Dt);
                 DataContractJsonSerializer serializer = new DataContractJsonSerializer(advectionState.GetType());
                 MemoryStream ms = new MemoryStream();
                 serializer.WriteObject(ms, advectionState);
@@ -212,9 +208,7 @@ namespace WpfDiploma
                     ms.Close();
                     StraightSpeedTextBox.Text = advectionState.DeriveData.V.ToString(CultureInfo.InvariantCulture);
                     CircularSpeedTextBox.Text = advectionState.DeriveData.U.ToString(CultureInfo.InvariantCulture);
-                    CircleRadiusTextBox.Text = advectionState.DeriveData.A.ToString(CultureInfo.InvariantCulture);
                     RotationPeriodTextBox.Text = advectionState.DeriveData.Period.ToString(CultureInfo.InvariantCulture);
-                    TimeStepTextBox.Text = advectionState.Dt.ToString(CultureInfo.InvariantCulture);
                     points = uiElement.Points = advectionState.Points;
                     uiElement.InvalidateVisual();
                 }
@@ -257,6 +251,11 @@ namespace WpfDiploma
                     System.Windows.MessageBox.Show("Неправильний формат файла", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontSize" Value="14"></Setter>
+        </Style>
         <BitmapImage x:Key="StartImageSource" UriSource="Start.ico"></BitmapImage>
         <BitmapImage x:Key="StopImageSource" UriSource="Stop.ico"></BitmapImage>
         <BitmapImage x:Key="PauseImageSource" UriSource="Pause.ico"></BitmapImage>

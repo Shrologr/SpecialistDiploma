@@ -56,7 +56,7 @@ namespace WpfDiploma
             points.Add(new CustomPoint(new double[] { 0.4, 0.6, 1.0 / Math.Sqrt(2), 1.0 / Math.Sqrt(2) }, Colors.Black));
             pointStates = new List<PointState>();
             columnIndexes = new List<int>();
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
 
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
@@ -93,7 +93,7 @@ namespace WpfDiploma
         {
             if (isReadable)
             {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text);
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
                 uiElement.InvalidateVisual();
             }
         }
@@ -171,7 +171,7 @@ namespace WpfDiploma
             isActive = true;
             uiElement.InvalidateVisual();
             double timeStep, calculationTime;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, CircleRadiusTextBox.Text, RotationPeriodTextBox.Text)
+            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)
                 || !double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep)
                 || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationTime))
             {
@@ -222,19 +222,19 @@ namespace WpfDiploma
             {
                 StartModeling();
                 if (isActive)
-                    ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://pause.ico");
+                    StartPauseImage.Source = FindResource("PauseImageSource") as BitmapImage;
             }
             else
             {
                 isPaused = !isPaused;
-                ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico", "file:///D://pause.ico", isPaused);
+                StartPauseImage.Source = FindResource((isPaused) ? "StartImageSource" : "PauseImageSource") as BitmapImage;
             }
         }
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
             isPaused = false;
             isActive = false;
-            ImageLoader.LoadAndSetImage(StartPauseImage, "file:///D://start.ico");
+            StartPauseImage.Source = FindResource("StartImageSource") as BitmapImage;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)
@@ -406,6 +406,11 @@ namespace WpfDiploma
                 RedrawGraph();
                 columnIndexes.Clear();
             }
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

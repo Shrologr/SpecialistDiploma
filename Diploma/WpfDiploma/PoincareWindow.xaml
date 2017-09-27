@@ -21,13 +21,12 @@
             <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <GroupBox Grid.Row="0" Header="Введення даних побудови перетину" FontSize="12">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -53,17 +52,7 @@
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.01" Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
-                    <TextBox.ToolTip>
-                        Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="1" Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
-                    <TextBox.ToolTip>
-                        Радіус півкола
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="400" Grid.Row="5" Grid.Column="0" Name="CalculationTimeTextBox">
+                <TextBox Text="400" Grid.Row="3" Grid.Column="0" Name="CalculationTimeTextBox">
                     <TextBox.ToolTip>
                         Час, протягом якого буде виконуватися побудова перетину Пуанкаре
                     </TextBox.ToolTip>
@@ -72,9 +61,7 @@
                 <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
-                <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
-                <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
-                <Label Grid.Row="5" Grid.Column="1" Content="Період побудови перетину"></Label>
+                <Label Grid.Row="3" Grid.Column="1" Content="Період побудови перетину"></Label>
 
                 <GroupBox Grid.RowSpan="6" Grid.Column="2" Header="Введення маркерів">
                     <Grid>
@@ -165,5 +152,6 @@
                 </Button>
             </Grid>
         </GroupBox>
+        <Button Grid.Row="5" Name="ExitButton" Content="Вихід" Foreground="Red" FontSize="26" Click="ExitButton_Click"></Button>
     </Grid>
 </Window>

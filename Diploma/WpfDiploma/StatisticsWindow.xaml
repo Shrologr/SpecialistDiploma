@@ -22,6 +22,7 @@
             <RowDefinition Height="0.4*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
             <RowDefinition Height="0.6*"></RowDefinition>
+            <RowDefinition Height="0.6*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -30,8 +31,6 @@
         <GroupBox Grid.Row="0" Grid.ColumnSpan="2" Header="Введення даних адвекції" FontSize="12">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -58,22 +57,12 @@
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.01" Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
-                    <TextBox.ToolTip>
-                        Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="1" Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
-                    <TextBox.ToolTip>
-                        Радіус півкола
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="400" Grid.Row="5" Grid.Column="0" Name="CalculationTimeTextBox">
+                <TextBox Text="400" Grid.Row="3" Grid.Column="0" Name="CalculationTimeTextBox">
                     <TextBox.ToolTip>
                         Час, протягом якого буде виконуватися побудова статистичних даних
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.02" Grid.Row="6" Grid.Column="0" Name="CellWidthTextBox" TextChanged="CellWidthTextBox_TextChanged">
+                <TextBox Text="0.02" Grid.Row="4" Grid.Column="0" Name="CellWidthTextBox" TextChanged="CellWidthTextBox_TextChanged">
                     <TextBox.ToolTip>
                         Ширина і висота сітки, що використовується в обчисленнях
                     </TextBox.ToolTip>
@@ -82,10 +71,8 @@
                 <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
-                <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
-                <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
-                <Label Grid.Row="5" Grid.Column="1" Content="Час моделювання"></Label>
-                <Label Grid.Row="6" Grid.Column="1" Content="Розмір сітки"></Label>
+                <Label Grid.Row="3" Grid.Column="1" Content="Час моделювання"></Label>
+                <Label Grid.Row="4" Grid.Column="1" Content="Розмір сітки"></Label>
 
                 <GroupBox Grid.RowSpan="7" Grid.Column="2" Header="Введення маркерів">
                     <Grid>
@@ -184,5 +171,6 @@
                 </Button>
             </Grid>
         </GroupBox>
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Name="ExitButton" Content="Вихід" Foreground="Red" FontSize="26" Click="ExitButton_Click"></Button>
     </Grid>
 </Window>
