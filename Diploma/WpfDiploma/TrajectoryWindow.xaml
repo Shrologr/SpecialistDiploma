@@ -113,10 +113,10 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Name="StartPauseButton" Grid.Column="0" Click="StartPauseButton_Click">
-                <Image Name="StartPauseImage" Source="D:\\start.ico"></Image>
+                <Image Name="StartPauseImage" Source="{StaticResource StartImageSource}"></Image>
             </Button>
             <Button Name="StopButton" Grid.Column="1" Click="StopButton_Click">
-                <Image Source="D:\\Stop.ico"></Image>
+                <Image Source="{StaticResource StopImageSource}"></Image>
             </Button>
         </Grid>
 
@@ -129,10 +129,10 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button Name="SaveDataButton" Grid.Column="0" Click="SaveDataButton_Click">
-                    <Image Source="D:\\Save.ico"></Image>
+                    <Image Source="{StaticResource SaveImageSource}"></Image>
                 </Button>
                 <Button Name="LoadDataButton" Grid.Column="1" Click="LoadDataButton_Click">
-                    <Image Source="D:\\Load.png"></Image>
+                    <Image Source="{StaticResource LoadImageSource}"></Image>
                 </Button>
             </Grid>
         </GroupBox>
@@ -144,10 +144,10 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button Name="SavePictureButton" Grid.Column="0" Click="SavePictureButton_Click">
-                    <Image Source="D:\\Save.ico"></Image>
+                    <Image Source="{StaticResource SaveImageSource}"></Image>
                 </Button>
                 <Button Name="LoadPictureButton" Grid.Column="1" Click="LoadPictureButton_Click">
-                    <Image Source="D:\\Load.png"></Image>
+                    <Image Source="{StaticResource LoadImageSource}"></Image>
                 </Button>
             </Grid>
         </GroupBox>

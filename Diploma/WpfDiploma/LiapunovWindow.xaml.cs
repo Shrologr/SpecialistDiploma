@@ -399,7 +399,7 @@ namespace WpfDiploma
                 {
                     tempList.Add(pointStates[i].Coordinates[columnIndexes[0]], pointStates[i].Coordinates[columnIndexes[1]]);
                 }
-                LineItem someLine = pane.AddCurve(pane.XAxis.Title.Text + "(" + pane.YAxis.Title.Text + ")", tempList, System.Drawing.Color.Red, SymbolType.None);
+                LineItem someLine = pane.AddCurve(pane.YAxis.Title.Text + "(" + pane.XAxis.Title.Text + ")", tempList, System.Drawing.Color.Red, SymbolType.None);
                 someLine.Line.DashOn = 2.0F;
                 someLine.Line.DashOff = 3.0F;
                 someLine.Line.Width = 3.0F;

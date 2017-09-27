@@ -23,15 +23,15 @@
                 <AccessText TextWrapping="Wrap" TextAlignment="Center" Text="Моделювання процесів переносу скалярних полів в хімічних промисловостях"></AccessText>
             </Label.Content>
         </Label>
-        <Label Grid.Row="1" FontSize="18" FontWeight="Black" HorizontalAlignment="Center" Content="Автор: Макарчук О.В.">
+        <Label Grid.Row="1" FontSize="18" FontWeight="Black" HorizontalAlignment="Center" Content="Макарчук Олександр Володимирович, ТР-61с">
         </Label>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="D:\advection1.png"></Image>
-            <Image Grid.Column="1" Source="D:\advection2.png"></Image>
+            <Image Grid.Column="0" Source="{StaticResource ResourceKey=Advection1ImageSource}"></Image>
+            <Image Grid.Column="1" Source="{StaticResource ResourceKey=Advection2ImageSource}"></Image>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

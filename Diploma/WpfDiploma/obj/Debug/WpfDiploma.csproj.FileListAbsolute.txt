@@ -44,3 +44,4 @@ C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debu
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\DiplomaClasses.pdb
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\bin\Debug\PersonalUIElement.pdb
 C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\WpfDiploma_MarkupCompile.lref
+C:\Users\Shrologr\Documents\GitHub\SpecialistDiploma\Diploma\WpfDiploma\obj\Debug\App.baml
