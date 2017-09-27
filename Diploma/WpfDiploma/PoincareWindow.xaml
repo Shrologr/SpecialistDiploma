@@ -8,7 +8,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Перетин Пуанкаре" Height="688.06" Width="585.374">
+        Title="Перетин Пуанкаре" Height="688" Width="660.374">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -70,28 +70,26 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="XCoordinateTextBox">
+                        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Name="XCoordinateTextBox" ToolTip="Координата X" 
+                                 GotFocus="XCoordinateTextBox_GotFocus" LostFocus="XCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата X">
 
                         </TextBox>
-                        <TextBox Grid.Row="3" Grid.ColumnSpan="2" Name="YCoordinateTextBox">
+                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="YCoordinateTextBox" ToolTip="Координата Y"
+                                 GotFocus="YCoordinateTextBox_GotFocus" LostFocus="YCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата Y">
 
                         </TextBox>
 
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
-
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Координата X"></Label>
-                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Координата Y"></Label>
-
-                        <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
-                        <Button Grid.Row="4" Name="NewPointButton" Grid.ColumnSpan="2" Content="Додати новий маркер" Click="NewPointButton_Click"></Button>
+                        <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
+                        <Button Grid.Row="2" Name="NewPointButton" Grid.ColumnSpan="2" Content="Додати новий маркер" Click="NewPointButton_Click"></Button>
 
                     </Grid>
 
@@ -123,7 +121,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Дані для побудови перетину" FontSize="20">
+        <GroupBox Grid.Row="3" Header="Перетин Пуанкаре">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -138,7 +136,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Header="Зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Header="Зображення">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

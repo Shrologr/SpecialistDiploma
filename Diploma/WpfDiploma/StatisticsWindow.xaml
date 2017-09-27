@@ -81,28 +81,24 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Slider Grid.Row="1" Name="PointNumberSlider" Maximum="100" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True">
+                        <Slider Grid.Row="0" Name="PointNumberSlider" Maximum="100" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True">
 
                         </Slider>
-                        <Slider Grid.Row="3" Name="PointSizeSlider" Maximum="100" Minimum="0" TickFrequency="1" IsSnapToTickEnabled="True">
+                        <Slider Grid.Row="1" Name="PointSizeSlider" Maximum="100" Minimum="0" TickFrequency="1" IsSnapToTickEnabled="True">
 
                         </Slider>
 
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
+                        <Label HorizontalAlignment="Center" ToolTip="Кількість маркерів" Grid.Row="0" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
+                        <Label HorizontalAlignment="Center" ToolTip="Розмір 'плями'" Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
 
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Кількість маркерів"></Label>
-                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Розмір 'плями'"></Label>
 
-                        <xctk:ColorPicker Grid.Row="5" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
-                        <Label Grid.Row="4" Grid.ColumnSpan="2" Content="Колір маркерів"></Label>
+                        <xctk:ColorPicker Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Колір маркерів"></Label>
 
                     </Grid>
 
@@ -127,7 +123,7 @@
                 <Image Source="{StaticResource StopImageSource}"></Image>
             </Button>
         </Grid>
-        <GroupBox Grid.Row="3" Header="Дані маркерів" FontSize="17">
+        <GroupBox Grid.Row="3" Header="Дані маркерів">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -142,7 +138,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="3" Grid.Column="1" Header="Графік" FontSize="17">
+        <GroupBox Grid.Row="3" Grid.Column="1" Header="Графік">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -157,7 +153,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Grid.ColumnSpan="2" Header="Зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Grid.ColumnSpan="2" Header="Зображення">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

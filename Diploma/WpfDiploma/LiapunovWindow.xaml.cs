@@ -170,9 +170,8 @@ namespace WpfDiploma
             TableGrid.Items.Clear();
             isActive = true;
             uiElement.InvalidateVisual();
-            double timeStep, calculationTime;
+            double calculationTime;
             if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)
-                || !double.TryParse(TimeStepTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out timeStep)
                 || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationTime))
             {
                 return;
@@ -182,7 +181,6 @@ namespace WpfDiploma
             pane.XAxis.Title.Text = "Час";
             pane.YAxis.Title.Text = "Значення показника";
             RungeKutClass rungeKut = new RungeKutClass(4, 0.01, 0.01, 0.01);
-            rungeKut.TimeStep = timeStep;
             WindowCall caller = uiElement.InvalidateVisual;
             WindowCall graphCaller = RedrawGraph;
             TableCall tableCaller = (t,x,y)=>
@@ -408,6 +406,35 @@ namespace WpfDiploma
             }
         }
 
+        private void XCoordinateTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            XCoordinateTextBox.Foreground = new SolidColorBrush(Colors.Black);
+            XCoordinateTextBox.Text = "";
+        }
+
+        private void YCoordinateTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            YCoordinateTextBox.Foreground = new SolidColorBrush(Colors.Black);
+            YCoordinateTextBox.Text = "";
+        }
+
+        private void XCoordinateTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(XCoordinateTextBox.Text))
+            {
+                XCoordinateTextBox.Foreground = new SolidColorBrush(Colors.Gray);
+                XCoordinateTextBox.Text = "Координата X";
+            }
+        }
+
+        private void YCoordinateTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(YCoordinateTextBox.Text))
+            {
+                YCoordinateTextBox.Foreground = new SolidColorBrush(Colors.Gray);
+                YCoordinateTextBox.Text = "Координата Y";
+            }
+        }
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Close();

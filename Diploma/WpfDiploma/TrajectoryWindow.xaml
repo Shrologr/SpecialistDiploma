@@ -8,7 +8,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Траєкторія" Height="688" Width="661.493">
+        Title="Траєкторія" Height="688" Width="660.493">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -68,10 +68,16 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Name="XCoordinateTextBox" ToolTip="Координата X" GotFocus="XCoordinateTextBox_GotFocus" LostFocus="XCoordinateTextBox_LostFocus">
+                        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Name="XCoordinateTextBox" ToolTip="Координата X" 
+                                 GotFocus="XCoordinateTextBox_GotFocus" LostFocus="XCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата X">
 
                         </TextBox>
-                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="YCoordinateTextBox" ToolTip="Координата Y" GotFocus="YCoordinateTextBox_GotFocus" LostFocus="YCoordinateTextBox_LostFocus">
+                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="YCoordinateTextBox" ToolTip="Координата Y"
+                                 GotFocus="YCoordinateTextBox_GotFocus" LostFocus="YCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата Y">
 
                         </TextBox>
                         
@@ -79,10 +85,7 @@
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
 
                         <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
-                        <Button Grid.Row="2" Name="NewPointButton" Grid.ColumnSpan="2" Click="NewPointButton_Click">
-                            <Button.Content>
-                                <AccessText TextWrapping="Wrap" Text="Додати новий маркер"></AccessText>
-                            </Button.Content>
+                        <Button Grid.Row="2" Name="NewPointButton" Content="Додати новий маркер" Grid.ColumnSpan="2" Click="NewPointButton_Click">
                         </Button>
 
                     </Grid>
@@ -108,7 +111,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Дані побудови траєкторії" FontSize="20">
+        <GroupBox Grid.Row="3" Header="Траєкторія">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -123,7 +126,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Header="Зображення" FontSize="20">
+        <GroupBox Grid.Row="4" Header="Зображення">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

@@ -104,7 +104,7 @@
 
 
 
-        <GroupBox Grid.Row="3" Header="Адвекція" FontSize="14">
+        <GroupBox Grid.Row="3" Header="Адвекція">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -119,7 +119,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="4" Header="Зображення" FontSize="14">
+        <GroupBox Grid.Row="4" Header="Зображення">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

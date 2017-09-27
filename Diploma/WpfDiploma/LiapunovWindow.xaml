@@ -11,7 +11,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Найбільший показник Ляпунова" Height="500" Width="800">
+        Title="Найбільший показник Ляпунова" Height="688" Width="800">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -37,8 +37,6 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -60,17 +58,7 @@
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.01" Grid.Row="3" Grid.Column="0" Name="TimeStepTextBox">
-                    <TextBox.ToolTip>
-                        Крок в часі при виконання розрахунків (меньше значення приводить до точніших результатів)
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="1" Grid.Row="4" Grid.Column="0" Name="CircleRadiusTextBox" TextChanged="AdvectionDataChanged">
-                    <TextBox.ToolTip>
-                        Радіус півкола
-                    </TextBox.ToolTip>
-                </TextBox>
-                <TextBox Text="300" Grid.Row="5" Grid.Column="0" Name="CalculationTimeTextBox">
+                <TextBox Text="300" Grid.Row="3" Grid.Column="0" Name="CalculationTimeTextBox">
                     <TextBox.ToolTip>
                         Час, протягом якого буде виконуватися побудова графіка показника Ляпунова
                     </TextBox.ToolTip>
@@ -79,15 +67,11 @@
                 <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
                 <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
-                <Label Grid.Row="3" Grid.Column="1" Content="Крок в часі Dt"></Label>
-                <Label Grid.Row="4" Grid.Column="1" Content="Радіус півкола A"></Label>
-                <Label Grid.Row="5" Grid.Column="1" Content="Час моделювання"></Label>
+                <Label Grid.Row="3" Grid.Column="1" Content="Час моделювання"></Label>
 
-                <GroupBox Grid.RowSpan="6" Grid.Column="2" Header="Зміна параметра маркера">
+                <GroupBox Grid.RowSpan="4" Grid.Column="2" Header="Зміна параметра маркера">
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
@@ -97,27 +81,23 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="XCoordinateTextBox">
+                        <TextBox Grid.Row="0" Grid.ColumnSpan="2" Name="XCoordinateTextBox" ToolTip="Координата X" 
+                                 GotFocus="XCoordinateTextBox_GotFocus" LostFocus="XCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата X">
 
                         </TextBox>
-                        <TextBox Grid.Row="3" Grid.ColumnSpan="2" Name="YCoordinateTextBox">
+                        <TextBox Grid.Row="1" Grid.ColumnSpan="2" Name="YCoordinateTextBox" ToolTip="Координата Y"
+                                 GotFocus="YCoordinateTextBox_GotFocus" LostFocus="YCoordinateTextBox_LostFocus"
+                                 Foreground="Gray"
+                                 Text="Координата Y">
 
                         </TextBox>
 
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding ElementName=PointNumberSlider, Path=Value}"></Label>
-                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding ElementName=PointSizeSlider, Path=Value}"></Label>
-
-                        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Координата X"></Label>
-                        <Label Grid.Row="2" Grid.ColumnSpan="2" Content="Координата Y"></Label>
-
-                        <Button Grid.Row="4" Grid.RowSpan="2" Name="NewPointButton" Grid.ColumnSpan="2" Click="NewPointButton_Click">
-                            <Button.Content>
-                                <AccessText TextWrapping="Wrap" Text="Змінити координати маркера"></AccessText>
-                            </Button.Content>
-                        </Button>
+                        <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
+                        <Button Grid.Row="2" Name="NewPointButton" Grid.ColumnSpan="2" Content="Перемістити маркер" Click="NewPointButton_Click"></Button>
 
                     </Grid>
-
                 </GroupBox>
             </Grid>
         </GroupBox>
@@ -170,7 +150,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="3" Grid.Column="1" FontSize="16">
+        <GroupBox Grid.Row="3" Grid.Column="1">
             <GroupBox.Header>
                 <AccessText TextWrapping="Wrap" Text="Графік"></AccessText>
             </GroupBox.Header>
@@ -188,7 +168,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Grid.Row="3" Grid.Column="2" FontSize="16">
+        <GroupBox Grid.Row="3" Grid.Column="2">
             <GroupBox.Header>
                 <AccessText TextWrapping="Wrap" Text="Таблиця"></AccessText>
             </GroupBox.Header>
