@@ -26,7 +26,6 @@ namespace WpfDiploma
     {
         bool isAddingActive;
         bool isActive, isPaused;
-        bool isReadable;
         public delegate void PictureBoxCall();
         Derives derives;
         List<CustomPoint> points;
@@ -35,7 +34,6 @@ namespace WpfDiploma
         CoordinateTransformer coordTransformer;
         public AdvectionWindow()
         {
-            isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
             derives = new Derives();
@@ -44,24 +42,12 @@ namespace WpfDiploma
             coordTransformer = new CoordinateTransformer(uiElement, derives);
             uiElement.CoordTransformer = coordTransformer;
             uiElement.Points = points;
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isReadable = true;
             isActive = false;
         }
-
-        private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isReadable)
-            {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
-                uiElement.InvalidateVisual();
-            }
-        }
-
-        private void AddNewPointCheck(MouseEventArgs e) 
+        private void AddNewPointCheck(MouseEventArgs e)
         {
             if (e.RightButton == MouseButtonState.Pressed)
             {
@@ -85,7 +71,7 @@ namespace WpfDiploma
         {
             isAddingActive = true;
             AddNewPointCheck(e);
-            
+
         }
 
         private void uiElement_MouseMove(object sender, MouseEventArgs e)
@@ -114,15 +100,19 @@ namespace WpfDiploma
             uiElement.InvalidateVisual();
         }
 
-        private async void StartModeling() 
+        private async void StartModeling()
         {
-            isActive = true;
-            uiElement.InvalidateVisual();
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)) 
+            try
             {
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
+            }
+            catch (ApplicationException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            
+            uiElement.InvalidateVisual();
+            isActive = true;
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             PictureBoxCall caller = uiElement.InvalidateVisual;
             await Task.Run(() =>
@@ -152,7 +142,7 @@ namespace WpfDiploma
                 if (isActive)
                     StartPauseImage.Source = FindResource("PauseImageSource") as BitmapImage;
             }
-            else 
+            else
             {
                 isPaused = !isPaused;
                 StartPauseImage.Source = FindResource((isPaused) ? "StartImageSource" : "PauseImageSource") as BitmapImage;
@@ -234,9 +224,9 @@ namespace WpfDiploma
                     imageWindow.Width = uiElement.ActualWidth;
                     imageWindow.Show();
                 }
-                catch 
+                catch
                 {
-                    System.Windows.MessageBox.Show("Неправильний формат файла", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);                    
+                    System.Windows.MessageBox.Show("Неправильний формат файла", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

@@ -24,7 +24,6 @@ namespace WpfDiploma
     public partial class PoincareWindow : Window
     {
         bool isAddingActive;
-        bool isReadable;
         public delegate void WindowCall();
         public delegate void ProgressBarCall(double currentTime);
         public delegate void PoincareListCall(double x, double y, Color color);
@@ -36,7 +35,6 @@ namespace WpfDiploma
         CoordinateTransformer coordTransformer;
         public PoincareWindow()
         {
-            isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
             poicarePoints = new List<CustomPoint>();
@@ -49,21 +47,9 @@ namespace WpfDiploma
             uiElement.Points = points;
             uiElement.PuankarePoints = poicarePoints;
 
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
-
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isReadable = true;
-        }
-
-        private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isReadable)
-            {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
-                uiElement.InvalidateVisual();
-            }
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -127,15 +113,23 @@ namespace WpfDiploma
 
         private async void StartModeling()
         {
+            double calculationPeriod;
+            try
+            {
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
+                if (!double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod))
+                    throw new ApplicationException("Неправильний формат періоду моделювання");
+                if (calculationPeriod <= 0)
+                    throw new ApplicationException("Значення періоду моделювання має бути невід'ємним (більшим нула)");
+            }
+            catch (ApplicationException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             StartPauseButton.IsEnabled = false;
             uiElement.InvalidateVisual();
             poicarePoints.Clear();
-            double calculationPeriod;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)
-                || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationPeriod))
-            {
-                return;
-            }
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             WindowCall caller = uiElement.InvalidateVisual;
             PoincareListCall poincareCaller = (x, y, color) => { poicarePoints.Add(new CustomPoint(new double[] { x, y }, color)); };

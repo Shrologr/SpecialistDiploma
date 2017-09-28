@@ -28,7 +28,6 @@ namespace WpfDiploma
     {
         bool isAddingActive;
         bool isActive, isPaused;
-        bool isReadable;
         bool isFullScreen;
         public delegate void PictureBoxCall();
         Derives derives;
@@ -48,7 +47,6 @@ namespace WpfDiploma
         GridStatistics gridStatistics;
         public StatisticsWindow()
         {
-            isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
             derives = new Derives();
@@ -84,11 +82,10 @@ namespace WpfDiploma
             uiElement.CoordTransformer = coordTransformer;
             uiElement.Points = points;
             uiElement.GridStats = gridStatistics;
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
+
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isReadable = true;
             isActive = false;
 
             LineItem densityDistributionMeanValueListLine = pane.AddCurve("Середнє значення густини розподілу", densityDistributionMeanValueList, System.Drawing.Color.Red, SymbolType.None);
@@ -116,19 +113,6 @@ namespace WpfDiploma
             segregationIntensityValueLine.Line.DashOn = 2.0F;
             segregationIntensityValueLine.Line.DashOff = 3.0F;
             segregationIntensityValueLine.Line.Width = 3.0F;
-            BuildGrid();
-        }
-
-        private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isReadable)
-            {
-                if (derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text))
-                {
-                    uiElement.InvalidateVisual();
-                    BuildGrid();
-                }
-            }
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -186,6 +170,21 @@ namespace WpfDiploma
 
         private async void StartModeling()
         {
+            double calculationTime;
+            try
+            {
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
+                if (!double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationTime))
+                    throw new ApplicationException("Неправильний формат часу моделювання");
+                if (calculationTime <= 0)
+                    throw new ApplicationException("Значення часу моделювання має бути невід'ємним (більшим нула)");
+                BuildGrid();
+            }
+            catch (ApplicationException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             isActive = true;
             uiElement.InvalidateVisual();
             densityDistributionMeanValueList.Clear();
@@ -193,12 +192,7 @@ namespace WpfDiploma
             mixtureEntropyValueList.Clear();
             maxMixtureEntropyValueList.Clear();
             segregationIntensityValueList.Clear();
-            double calculationTime;
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text)
-                || !double.TryParse(CalculationTimeTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out calculationTime))
-            {
-                return;
-            }
+
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             PictureBoxCall caller = uiElement.InvalidateVisual;
             PictureBoxCall graphCaller = RedrawGraph;
@@ -350,23 +344,15 @@ namespace WpfDiploma
 
         private void BuildGrid()
         {
-            if (isReadable)
+            if (!double.TryParse(CellWidthTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out gridStatistics.cellWidth))
             {
-                if (!double.TryParse(CellWidthTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out gridStatistics.cellWidth))
-                {
-                    return;
-                }
-                gridStatistics.ConstructGrid(derives);
+                throw new ApplicationException("Неправильний формат розміру сітки");
             }
-        }
-
-        private void CellWidthTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isReadable)
+            if (gridStatistics.cellWidth <= 0)
             {
-                BuildGrid();
-                uiElement.InvalidateVisual();
+                throw new ApplicationException("Значення розміру сітки має бути більшим нуля");                
             }
+            gridStatistics.ConstructGrid(derives);
         }
 
         private void GraphControl_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)

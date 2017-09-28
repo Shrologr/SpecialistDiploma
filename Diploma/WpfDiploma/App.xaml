@@ -9,6 +9,9 @@
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="14"></Setter>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
         <BitmapImage x:Key="StartImageSource" UriSource="Start.ico"></BitmapImage>
         <BitmapImage x:Key="StopImageSource" UriSource="Stop.ico"></BitmapImage>
         <BitmapImage x:Key="PauseImageSource" UriSource="Pause.ico"></BitmapImage>

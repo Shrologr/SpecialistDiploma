@@ -12,11 +12,6 @@
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
         Title="Найбільший показник Ляпунова" Height="688" Width="800">
-    <Window.Resources>
-        <Style TargetType="Label">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.0*"></RowDefinition>
@@ -43,17 +38,17 @@
                     <ColumnDefinition Width="1.6*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Text="1.5" Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="1.5" Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається кругова границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.7" Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="0.7" Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається нижня прямолінійна границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="5" Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="5" Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox">
                     <TextBox.ToolTip>
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>

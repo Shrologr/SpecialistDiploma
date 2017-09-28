@@ -23,27 +23,33 @@ namespace WpfDiploma
             Period = 0.1;
         }
 
-        public bool SetData(string straightSpeed, string rotatingSpeed, string workPeriod)
+        public void SetData(string straightSpeed, string rotatingSpeed, string workPeriod)
         {
-            if (double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out V) &&
-                double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out U) &&
-                double.TryParse(workPeriod, NumberStyles.Float, CultureInfo.InvariantCulture, out Period))
+            double v, u, period;
+            if (double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out v) &&
+                double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out u) &&
+                double.TryParse(workPeriod, NumberStyles.Float, CultureInfo.InvariantCulture, out period))
             {
-                V /= A;
-                U /= A;
-                A /= A;
-                return true;
+                if (v <= 0)
+                {
+                    throw new ApplicationException("Значення поступальної швидкості має бути невід'ємним (більшим нуля)");
+                }
+                if (u <= 0)
+                {
+                    throw new ApplicationException("Значення обертальної швидкості має бути невід'ємним (більшим нуля)");                   
+                }
+                if (period <= 0)
+                {
+                    throw new ApplicationException("Значення періода обертання має бути невід'ємним (більшим нуля)");                                       
+                }
+                V = v;
+                U = u;
+                Period = period;
             }
-            else
-                return false;
-        }
-
-        public void SetData(double straightSpeed, double rotatingSpeed, double workPeriod)
-        {
-            V = straightSpeed / A;
-            U = rotatingSpeed / A;
-            A = 1;
-            Period = workPeriod;
+            else 
+            {
+                throw new ApplicationException("Неправильний формат введених параметрів");
+            }
         }
 
         public Derives(double v, double u, double a, double period)

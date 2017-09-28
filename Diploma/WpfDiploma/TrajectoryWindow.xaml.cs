@@ -25,7 +25,6 @@ namespace WpfDiploma
     {
         bool isAddingActive;
         bool isActive, isPaused;
-        bool isReadable;
         public delegate void WindowCall();
         public delegate void TrajectoryListCall(double x, double y, Color color);
         Derives derives;
@@ -36,7 +35,6 @@ namespace WpfDiploma
         CoordinateTransformer coordTransformer;
         public TrajectoryWindow()
         {
-            isReadable = false;
             pointRandom = new Random();
             points = new List<CustomPoint>();
             trajectoryPoints = new List<CustomPoint>();
@@ -49,22 +47,10 @@ namespace WpfDiploma
             uiElement.Points = points;
             uiElement.TrajectoryPoints = trajectoryPoints;
 
-            derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
-
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isReadable = true;
             isActive = false;
-        }
-
-        private void AdvectionDataChanged(object sender, TextChangedEventArgs e)
-        {
-            if (isReadable)
-            {
-                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
-                uiElement.InvalidateVisual();
-            }
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -128,12 +114,18 @@ namespace WpfDiploma
 
         private async void StartModeling()
         {
-            isActive = true;
-            uiElement.InvalidateVisual();
-            if (!derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text))
+            try
             {
+                derives.SetData(StraightSpeedTextBox.Text, CircularSpeedTextBox.Text, RotationPeriodTextBox.Text);
+            }
+            catch (ApplicationException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            isActive = true;
+            uiElement.InvalidateVisual();
+
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             WindowCall caller = uiElement.InvalidateVisual;
             WindowCall trajectoryRemoveCaller = () => { if (trajectoryPoints.Count > points.Count * 120) trajectoryPoints.RemoveRange(0, points.Count); };

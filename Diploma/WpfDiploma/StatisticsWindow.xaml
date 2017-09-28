@@ -10,11 +10,6 @@
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
         Title="Статистика" Height="688.06" Width="900">
-    <Window.Resources>
-        <Style TargetType="Label">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"></RowDefinition>
@@ -42,17 +37,17 @@
                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Text="1.5" Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="1.5" Grid.Row="0" Grid.Column="0" Name="CircularSpeedTextBox">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається кругова границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.7" Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="0.7" Grid.Row="1" Grid.Column="0" Name="StraightSpeedTextBox">
                     <TextBox.ToolTip>
                         Швидкість, з якою рухається нижня прямолінійна границя півкола
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="5" Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox" TextChanged="AdvectionDataChanged">
+                <TextBox Text="5" Grid.Row="2" Grid.Column="0" Name="RotationPeriodTextBox">
                     <TextBox.ToolTip>
                         Період повного обертання півкола (нижньої та верхньої границі)
                     </TextBox.ToolTip>
@@ -62,7 +57,7 @@
                         Час, протягом якого буде виконуватися побудова статистичних даних
                     </TextBox.ToolTip>
                 </TextBox>
-                <TextBox Text="0.02" Grid.Row="4" Grid.Column="0" Name="CellWidthTextBox" TextChanged="CellWidthTextBox_TextChanged">
+                <TextBox Text="0.02" Grid.Row="4" Grid.Column="0" Name="CellWidthTextBox">
                     <TextBox.ToolTip>
                         Ширина і висота сітки, що використовується в обчисленнях
                     </TextBox.ToolTip>
