@@ -89,7 +89,7 @@
 
                         </TextBox>
 
-                        <xctk:ColorPicker ToolTip="Колір точок" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
+                        <xctk:ColorPicker ToolTip="Колір маркера" Grid.Row="3" Grid.ColumnSpan="2" x:Name="PointColorPicker" SelectedColor="Black"></xctk:ColorPicker>
                         <Button Grid.Row="2" Name="NewPointButton" Grid.ColumnSpan="2" Content="Перемістити маркер" Click="NewPointButton_Click"></Button>
 
                     </Grid>

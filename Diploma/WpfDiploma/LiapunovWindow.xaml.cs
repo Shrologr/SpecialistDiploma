@@ -125,7 +125,7 @@ namespace WpfDiploma
             double x = coordTransformer.TransformXtoLocal(X);
             double y = coordTransformer.TransformYtoLocal(Y);
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
-                pointList[0] = new CustomPoint(new double[] { x, y, 1.0 / Math.Sqrt(2), 1.0 / Math.Sqrt(2) }, Colors.Black);
+                pointList[0] = new CustomPoint(new double[] { x, y, 1.0 / Math.Sqrt(2), 1.0 / Math.Sqrt(2) }, PointColorPicker.SelectedColor.Value);
         }
 
         private void NewPointButton_Click(object sender, RoutedEventArgs e)
@@ -134,7 +134,7 @@ namespace WpfDiploma
             if (!double.TryParse(XCoordinateTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out x) || !double.TryParse(YCoordinateTextBox.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out y))
                 return;
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
-                points[0] = new CustomPoint(new double[] { x, y, 1.0 / Math.Sqrt(2), 1.0 / Math.Sqrt(2) }, Colors.Black);
+                points[0] = new CustomPoint(new double[] { x, y, 1.0 / Math.Sqrt(2), 1.0 / Math.Sqrt(2) }, PointColorPicker.SelectedColor.Value);
             uiElement.InvalidateVisual();
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -356,7 +356,7 @@ namespace WpfDiploma
                 isFullScreen = !isFullScreen;
                 Grid.SetRow(GraphHost, 0);
                 Grid.SetColumn(GraphHost, 0);
-                Grid.SetRowSpan(GraphHost, 5);
+                Grid.SetRowSpan(GraphHost, 4);
                 Grid.SetColumnSpan(GraphHost, 3);
             }
             else
