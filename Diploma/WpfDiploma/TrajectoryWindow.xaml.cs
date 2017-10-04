@@ -33,6 +33,12 @@ namespace WpfDiploma
         DrawState advectionState;
         Random pointRandom;
         CoordinateTransformer coordTransformer;
+
+        int hhh = 1;
+        DrawingGroup hui = new DrawingGroup();
+        DrawingContext someContext;
+
+
         public TrajectoryWindow()
         {
             pointRandom = new Random();
@@ -50,7 +56,7 @@ namespace WpfDiploma
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isActive = false;
+            isActive = false;        
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -97,7 +103,7 @@ namespace WpfDiploma
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
                 pointList.Add(new CustomPoint(new double[] { x, y }, PointColorPicker.SelectedColor.Value));
         }
-
+        //bool ifclicked = false;
         private void NewPointButton_Click(object sender, RoutedEventArgs e)
         {
             double x, y;
@@ -106,6 +112,29 @@ namespace WpfDiploma
             if (Math.Sqrt(x * x + y * y) < derives.A && y > 0)
                 points.Add(new CustomPoint(new double[] { x, y }, PointColorPicker.SelectedColor.Value));
             uiElement.InvalidateVisual();
+            //if (!ifclicked)
+            //{
+            //    Pen shapeOutlinePen = new Pen(Brushes.Black, 2);
+            //    hui.Children.Add(new GeometryDrawing(Brushes.Blue, shapeOutlinePen, new RectangleGeometry(new Rect(50, 0, 25, 25))));
+            //    hui.Children.Add(new GeometryDrawing(Brushes.Red, shapeOutlinePen, new RectangleGeometry(new Rect(80, 0, 10, 25))));
+            //    hhh += 2;
+            //    Image theImage = new Image();
+            //    DrawingImage dImageSource;
+            //    MessageBox.Show(hui.Children[0].GetType().ToString(), "");
+            //    dImageSource = new DrawingImage(hui);
+            //    theImage.Source = dImageSource;
+            //    theImage.Stretch = Stretch.None;
+            //    uiElement.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+            //    uiElement.VerticalContentAlignment = System.Windows.VerticalAlignment.Center;
+                
+            //    uiElement.Content = theImage;
+            //    ifclicked = true;
+            //}
+            //else 
+            //{
+            //    hui.Children.RemoveAt(1);
+            //}
+
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -126,6 +155,7 @@ namespace WpfDiploma
             isActive = true;
             uiElement.InvalidateVisual();
 
+
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             WindowCall caller = uiElement.InvalidateVisual;
             WindowCall trajectoryRemoveCaller = () => { if (trajectoryPoints.Count > points.Count * 120) trajectoryPoints.RemoveRange(0, points.Count); };
@@ -142,7 +172,7 @@ namespace WpfDiploma
                     {
                         rungeKut.Runge_Kut(points[j], derives);
                         if (i % 15 == 0)
-                        Dispatcher.Invoke(trajCaller, points[j].Coordinates[0], points[j].Coordinates[1], points[j].BrushColor);
+                            Dispatcher.Invoke(trajCaller, points[j].Coordinates[0], points[j].Coordinates[1], points[j].BrushColor);
                     }
                     rungeKut.RecalculateTime(i);
                     Dispatcher.Invoke(caller);

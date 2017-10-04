@@ -26,17 +26,17 @@ namespace WpfDiploma
         public void SetData(string straightSpeed, string rotatingSpeed, string workPeriod)
         {
             double v, u, period;
-            if (double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out v) &&
-                double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out u) &&
+            if (double.TryParse(rotatingSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out v) &&
+                double.TryParse(straightSpeed, NumberStyles.Float, CultureInfo.InvariantCulture, out u) &&
                 double.TryParse(workPeriod, NumberStyles.Float, CultureInfo.InvariantCulture, out period))
             {
                 if (v <= 0)
                 {
-                    throw new ApplicationException("Значення поступальної швидкості має бути невід'ємним (більшим нуля)");
+                    throw new ApplicationException("Значення обертальної швидкості має бути невід'ємним (більшим нуля)");
                 }
                 if (u <= 0)
                 {
-                    throw new ApplicationException("Значення обертальної швидкості має бути невід'ємним (більшим нуля)");                   
+                    throw new ApplicationException("Значення прямолінійної швидкості має бути невід'ємним (більшим нуля)");                   
                 }
                 if (period <= 0)
                 {

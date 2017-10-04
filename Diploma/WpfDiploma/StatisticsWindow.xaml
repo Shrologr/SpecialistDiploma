@@ -63,8 +63,8 @@
                     </TextBox.ToolTip>
                 </TextBox>
 
-                <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість U"></Label>
-                <Label Grid.Row="1" Grid.Column="1" Content="Поступальна швидкість V"></Label>
+                <Label Grid.Row="0" Grid.Column="1" Content="Обертальна швидкість V"></Label>
+                <Label Grid.Row="1" Grid.Column="1" Content="Прямолінійна швидкість U"></Label>
                 <Label Grid.Row="2" Grid.Column="1" Content="Період обертання T"></Label>
                 <Label Grid.Row="3" Grid.Column="1" Content="Час моделювання"></Label>
                 <Label Grid.Row="4" Grid.Column="1" Content="Розмір сітки"></Label>

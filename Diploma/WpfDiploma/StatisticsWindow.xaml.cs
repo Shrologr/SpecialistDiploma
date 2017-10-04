@@ -236,7 +236,6 @@ namespace WpfDiploma
                     gridStatistics.ClearGrid();
                 }
             });
-            points.Clear();
             uiElement.InvalidateVisual();
         }
 

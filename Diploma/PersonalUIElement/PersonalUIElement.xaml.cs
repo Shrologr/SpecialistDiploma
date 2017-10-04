@@ -41,8 +41,8 @@ namespace PersonalUIElement
         {
             Pen axisPen = new Pen(new SolidColorBrush(Colors.Black), 2.5);
             Brush textBrush = new SolidColorBrush(Colors.Black);
-            
-            drawingContext.DrawRectangle(new SolidColorBrush(Colors.White), new Pen(new SolidColorBrush(Colors.White), 2.5), new Rect(0, 0, ActualWidth, ActualHeight));
+
+            drawingContext.DrawRectangle(Brushes.White, new Pen(Brushes.White, 2.5), new Rect(0, 0, ActualWidth, ActualHeight));
             drawingContext.DrawLine(axisPen, new Point(ActualWidth / 2, ActualHeight * 0.9F), new Point(ActualWidth / 2, 0));
             drawingContext.DrawLine(axisPen, new Point(0, ActualHeight * 0.9F), new Point(ActualWidth, ActualHeight * 0.9F));
 
