@@ -46,6 +46,7 @@ namespace WpfDiploma
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
             isActive = false;
+            StopButton.IsEnabled = false;
         }
         private void AddNewPointCheck(MouseEventArgs e)
         {
@@ -111,6 +112,7 @@ namespace WpfDiploma
                 System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            StopButton.IsEnabled = true;
             uiElement.InvalidateVisual();
             isActive = true;
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
@@ -154,6 +156,7 @@ namespace WpfDiploma
             isActive = false;
             var hui = FindResource("StartImageSource") as BitmapImage;
             StartPauseImage.Source = hui;
+            StopButton.IsEnabled = false;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)

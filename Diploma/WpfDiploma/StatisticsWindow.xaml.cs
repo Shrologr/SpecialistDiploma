@@ -113,6 +113,7 @@ namespace WpfDiploma
             segregationIntensityValueLine.Line.DashOn = 2.0F;
             segregationIntensityValueLine.Line.DashOff = 3.0F;
             segregationIntensityValueLine.Line.Width = 3.0F;
+            StopButton.IsEnabled = false;
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -185,6 +186,7 @@ namespace WpfDiploma
                 System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            StopButton.IsEnabled = true;
             isActive = true;
             uiElement.InvalidateVisual();
             densityDistributionMeanValueList.Clear();
@@ -258,6 +260,7 @@ namespace WpfDiploma
             isPaused = false;
             isActive = false;
             StartPauseImage.Source = FindResource("StartImageSource") as BitmapImage;
+            StopButton.IsEnabled = false;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)

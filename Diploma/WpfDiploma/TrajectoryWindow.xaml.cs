@@ -34,9 +34,9 @@ namespace WpfDiploma
         Random pointRandom;
         CoordinateTransformer coordTransformer;
 
-        int hhh = 1;
-        DrawingGroup hui = new DrawingGroup();
-        DrawingContext someContext;
+        //int hhh = 1;
+        //DrawingGroup hui = new DrawingGroup();
+        //DrawingContext someContext;
 
 
         public TrajectoryWindow()
@@ -56,7 +56,8 @@ namespace WpfDiploma
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
-            isActive = false;        
+            isActive = false;
+            StopButton.IsEnabled = false;
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -154,11 +155,11 @@ namespace WpfDiploma
             }
             isActive = true;
             uiElement.InvalidateVisual();
-
+            StopButton.IsEnabled = true;
 
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
             WindowCall caller = uiElement.InvalidateVisual;
-            WindowCall trajectoryRemoveCaller = () => { if (trajectoryPoints.Count > points.Count * 120) trajectoryPoints.RemoveRange(0, points.Count); };
+            WindowCall trajectoryRemoveCaller = () => { if (trajectoryPoints.Count > points.Count * 300) trajectoryPoints.RemoveRange(0, points.Count); };
             TrajectoryListCall trajCaller = (x, y, color) => { trajectoryPoints.Add(new CustomPoint(new double[] { x, y }, color)); };
             await Task.Run(() =>
             {
@@ -204,6 +205,7 @@ namespace WpfDiploma
             isPaused = false;
             isActive = false;
             StartPauseImage.Source = FindResource("StartImageSource") as BitmapImage;
+            StopButton.IsEnabled = false;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)

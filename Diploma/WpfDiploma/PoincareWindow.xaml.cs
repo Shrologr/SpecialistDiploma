@@ -23,6 +23,7 @@ namespace WpfDiploma
     /// </summary>
     public partial class PoincareWindow : Window
     {
+        bool isActive;
         bool isAddingActive;
         public delegate void WindowCall();
         public delegate void ProgressBarCall(double currentTime);
@@ -50,6 +51,8 @@ namespace WpfDiploma
             uiElement.MouseDown += uiElement_MouseDown;
             uiElement.MouseUp += uiElement_MouseUp;
             uiElement.MouseMove += uiElement_MouseMove;
+            StopButton.IsEnabled = false;
+            isActive = false;
         }
 
         private void AddNewPointCheck(MouseEventArgs e)
@@ -127,7 +130,9 @@ namespace WpfDiploma
                 System.Windows.MessageBox.Show(ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            StopButton.IsEnabled = true;
             StartPauseButton.IsEnabled = false;
+            isActive = true;
             uiElement.InvalidateVisual();
             poicarePoints.Clear();
             RungeKutClass rungeKut = new RungeKutClass(2, 0, 0.01, 0.01);
@@ -143,7 +148,7 @@ namespace WpfDiploma
             }
             await Task.Run(() =>
             {
-                for (int i = 1; rungeKut.CurrentTime < calculationPeriod; i++)
+                for (int i = 1; rungeKut.CurrentTime < calculationPeriod && isActive; i++)
                 {
                     for (int j = 0; j < points.Count; j++)
                     {
@@ -160,6 +165,7 @@ namespace WpfDiploma
             PoincareProgressBar.Value = 0;
             StartPauseButton.IsEnabled = true;
             uiElement.InvalidateVisual();
+            isActive = false;
         }
 
         private void StartPauseButton_Click(object sender, RoutedEventArgs e)
@@ -168,8 +174,17 @@ namespace WpfDiploma
         }
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            poicarePoints.Clear();
-            uiElement.InvalidateVisual();
+            if (isActive)
+            {
+                isActive = false;
+                uiElement.InvalidateVisual();
+            }
+            else 
+            {
+                poicarePoints.Clear();
+                uiElement.InvalidateVisual();
+                StopButton.IsEnabled = false;
+            }
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)

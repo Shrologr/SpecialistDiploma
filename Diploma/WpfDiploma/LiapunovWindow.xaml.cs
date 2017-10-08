@@ -82,6 +82,7 @@ namespace WpfDiploma
             liapunovLine.Line.DashOn = 2.0F;
             liapunovLine.Line.DashOff = 3.0F;
             liapunovLine.Line.Width = 3.0F;
+            StopButton.IsEnabled = false;
         }
         private void AddNewPointCheck(MouseEventArgs e)
         {
@@ -168,6 +169,7 @@ namespace WpfDiploma
             pointStates.Clear();
             TableGrid.Items.Clear();
             isActive = true;
+            StopButton.IsEnabled = true;
             uiElement.InvalidateVisual();
             pane.CurveList.Clear();
             pane.CurveList.Add(mainCurve);
@@ -182,8 +184,6 @@ namespace WpfDiploma
                 pointStates.Add(state);
                 TableGrid.Items.Add(state);
             };
-
-
             await Task.Run(() =>
             {
                 for (int i = 1; isActive && rungeKut.CurrentTime <= calculationTime; i++)
@@ -226,6 +226,7 @@ namespace WpfDiploma
             isPaused = false;
             isActive = false;
             StartPauseImage.Source = FindResource("StartImageSource") as BitmapImage;
+            StopButton.IsEnabled = false;
         }
 
         private void SaveDataButton_Click(object sender, RoutedEventArgs e)
