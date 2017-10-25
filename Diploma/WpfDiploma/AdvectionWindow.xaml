@@ -8,7 +8,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Адвекція" Height="688" Width="550.374">
+        Title="Адвекція" Height="688" Width="580.374">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.15*"></RowDefinition>

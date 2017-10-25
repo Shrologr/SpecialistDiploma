@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WpfDiploma.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Диплом" Height="414.291" Width="848.88"
+        Title="Моделювання процесів переносу скалярних полів в хімічних промисловостях" Height="414.291" Width="848.88"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">

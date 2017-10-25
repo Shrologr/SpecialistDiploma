@@ -103,9 +103,11 @@ namespace WpfDiploma
 
         private void uiElement_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isAddingActive = true;
-            AddNewPointCheck(e);
-
+            if (!isActive)
+            {
+                isAddingActive = true;
+                AddNewPointCheck(e);
+            }
         }
 
         private void uiElement_MouseMove(object sender, MouseEventArgs e)
@@ -372,31 +374,34 @@ namespace WpfDiploma
 
         private void TableGrid_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (TableGrid.CurrentColumn != null)
+            if (!isActive)
             {
-                switch (TableGrid.CurrentColumn.Header.ToString())
+                if (TableGrid.CurrentColumn != null)
                 {
-                    case "Час": columnIndexes.Add(0); break;
-                    case "Координата X": columnIndexes.Add(1); break;
-                    case "Координата Y": columnIndexes.Add(2); break;
+                    switch (TableGrid.CurrentColumn.Header.ToString())
+                    {
+                        case "Час": columnIndexes.Add(0); break;
+                        case "Координата X": columnIndexes.Add(1); break;
+                        case "Координата Y": columnIndexes.Add(2); break;
+                    }
                 }
-            }
-            if (columnIndexes.Count == 2)
-            {
-                pane.CurveList.Clear();
-                pane.XAxis.Title.Text = TableGrid.Columns[columnIndexes[0]].Header.ToString();
-                pane.YAxis.Title.Text = TableGrid.Columns[columnIndexes[1]].Header.ToString();
-                PointPairList tempList = new PointPairList();
-                for (int i = 0; i < pointStates.Count; i++)
+                if (columnIndexes.Count == 2)
                 {
-                    tempList.Add(pointStates[i].Coordinates[columnIndexes[0]], pointStates[i].Coordinates[columnIndexes[1]]);
+                    pane.CurveList.Clear();
+                    pane.XAxis.Title.Text = TableGrid.Columns[columnIndexes[0]].Header.ToString();
+                    pane.YAxis.Title.Text = TableGrid.Columns[columnIndexes[1]].Header.ToString();
+                    PointPairList tempList = new PointPairList();
+                    for (int i = 0; i < pointStates.Count; i++)
+                    {
+                        tempList.Add(pointStates[i].Coordinates[columnIndexes[0]], pointStates[i].Coordinates[columnIndexes[1]]);
+                    }
+                    LineItem someLine = pane.AddCurve(pane.YAxis.Title.Text + "(" + pane.XAxis.Title.Text + ")", tempList, System.Drawing.Color.Red, SymbolType.None);
+                    someLine.Line.DashOn = 2.0F;
+                    someLine.Line.DashOff = 3.0F;
+                    someLine.Line.Width = 3.0F;
+                    RedrawGraph();
+                    columnIndexes.Clear();
                 }
-                LineItem someLine = pane.AddCurve(pane.YAxis.Title.Text + "(" + pane.XAxis.Title.Text + ")", tempList, System.Drawing.Color.Red, SymbolType.None);
-                someLine.Line.DashOn = 2.0F;
-                someLine.Line.DashOff = 3.0F;
-                someLine.Line.Width = 3.0F;
-                RedrawGraph();
-                columnIndexes.Clear();
             }
         }
 

@@ -79,9 +79,11 @@ namespace WpfDiploma
 
         private void uiElement_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            isAddingActive = true;
-            AddNewPointCheck(e);
-
+            if (!isActive)
+            {
+                isAddingActive = true;
+                AddNewPointCheck(e);
+            }
         }
 
         private void uiElement_MouseMove(object sender, MouseEventArgs e)
@@ -177,7 +179,7 @@ namespace WpfDiploma
                     }
                     rungeKut.RecalculateTime(i);
                     Dispatcher.Invoke(caller);
-                    Dispatcher.Invoke(trajectoryRemoveCaller);
+                    //Dispatcher.Invoke(trajectoryRemoveCaller);
                     System.Threading.Thread.Sleep(1);
                 }
             });
@@ -236,8 +238,8 @@ namespace WpfDiploma
                     MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(File.ReadAllText(dialog.FileName)));
                     advectionState = serializer.ReadObject(ms) as DrawState;
                     ms.Close();
-                    StraightSpeedTextBox.Text = advectionState.DeriveData.V.ToString(CultureInfo.InvariantCulture);
-                    CircularSpeedTextBox.Text = advectionState.DeriveData.U.ToString(CultureInfo.InvariantCulture);
+                    StraightSpeedTextBox.Text = advectionState.DeriveData.U.ToString(CultureInfo.InvariantCulture);
+                    CircularSpeedTextBox.Text = advectionState.DeriveData.V.ToString(CultureInfo.InvariantCulture);
                     RotationPeriodTextBox.Text = advectionState.DeriveData.Period.ToString(CultureInfo.InvariantCulture);
                     points = uiElement.Points = advectionState.Points;
                     uiElement.InvalidateVisual();

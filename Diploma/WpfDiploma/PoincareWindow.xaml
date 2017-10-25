@@ -8,7 +8,7 @@
         FontFamily="Courier New"
         SizeChanged="Window_SizeChanged"
         WindowStartupLocation="CenterScreen"
-        Title="Перетин Пуанкаре" Height="688" Width="660.374">
+        Title="Перетин Пуанкаре" Height="688" Width="675.374">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.1*"></RowDefinition>
